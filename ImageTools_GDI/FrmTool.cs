@@ -17,12 +17,14 @@ namespace ImageTools_GDI
 {
     public partial class FrmTool : Form
     {
+        #region args
+
         [DllImport("PrScrn.dll", EntryPoint = "PrScrn")]
         public extern static int PrScrn();
 
-
         public CutPicPanelTools ScrnTools = null;
         CutPicPanel panel1 = null;
+
 
         /// <summary>
         /// 裁剪图片
@@ -96,16 +98,20 @@ namespace ImageTools_GDI
         Rectangle rect;
         #endregion
 
-        private void btnScrn_Click(Object sender, EventArgs e)
-        {
-            if (PrScrn() == 1)
-            {
-                if (Clipboard.ContainsImage())
-                {
-                    panelImage.BackgroundImage = Clipboard.GetImage();
-                }
-            }
-        }
+        /// <summary>
+        /// 图片位置 默认1
+        /// 0:top 1:center 2:bottom
+        /// </summary>
+        int img_location = 1;
+
+        /// <summary>
+        /// 图片缩放模式 默认1
+        /// 0:fill 1:zoom
+        /// </summary>
+        int img_style_model = 1;
+
+        #endregion
+
         public FrmTool()
         {
             InitializeComponent();
@@ -128,6 +134,24 @@ namespace ImageTools_GDI
             tabControl1.SelectedIndex = 1;
         }
 
+        #region 事件
+        /// <summary>
+        /// 截图按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnScrn_Click(Object sender, EventArgs e)
+        {
+            if (PrScrn() == 1)
+            {
+                if (Clipboard.ContainsImage())
+                {
+                    panelImage.BackgroundImage = Clipboard.GetImage();
+                }
+            }
+        }
+
+        #region 画布工作区
         private void Panel1_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -179,36 +203,11 @@ namespace ImageTools_GDI
             Cursor.Current = Cursors.Default;
         }
 
-        private void ScrnTools_ToolsClickEvent(Object sender, EventArgs e)
-        {
-            if ((int)sender == 1)
-            {
-                Point r = new Point();
-                Bitmap image = new Bitmap(draw_rect.Width, draw_rect.Height);
-                Graphics imgGh = Graphics.FromImage(image);
-                r.X = draw_rect.X ;
-                r.Y = draw_rect.Y ;
-                r = panel1.PointToScreen(r);
-                imgGh.CopyFromScreen(r, new Point(0, 0), new Size(draw_rect.Width , draw_rect.Height ));
-
-                picScrn.Image = image;
-            }
-            bitmap = new Bitmap(panel1.Width, panel1.Height);
-            graph = Graphics.FromImage(bitmap);
-            graph.Clear(Color.Transparent);
-            panel1.BackgroundImage = bitmap;
-            draw_rect = new Rectangle(0, 0, 0, 0);
-            ScrnTools.Visible = false;
-            ScrnTools.Dispose();
-            panel1.Controls.Clear();
-            show_tools = false;
-        }
-
         private void FrmScrn_MouseMove(Object sender, MouseEventArgs e)
         {
             if (m_down)//左键按下时
             {
-                //gdi绘制区域截图砍掉，使用微信截图dll
+                //砍掉，使用微信截图dll
                 if (isCut)
                 {
                     if (isRectMove)
@@ -276,7 +275,7 @@ namespace ImageTools_GDI
                             //graph.FillRectangle(new SolidBrush(Color.FromArgb(128, Color.LightGreen)), draw_rect);
                         }
                     }
-                    //绘制完成显示工具栏
+
                     show_tools = true;
                     panel1.BackgroundImage = bitmap;
                     graph.Dispose();
@@ -344,39 +343,14 @@ namespace ImageTools_GDI
             }
             m_down = true;
         }
+        #endregion
 
-        private void btnLeftRotate90_Click(Object sender, EventArgs e)
-        {
-            if (this.src_image == null) return;
-            Image img = this.src_image;
-            img.RotateFlip(RotateFlipType.Rotate270FlipNone);
-            picImage.Invalidate();
-        }
 
-        private void btnRightRotate90_Click(Object sender, EventArgs e)
-        {
-            if (this.src_image == null) return;
-            Image img = this.src_image;
-            img.RotateFlip(RotateFlipType.Rotate90FlipNone);
-            picImage.Invalidate();
-        }
-
-        private void btnVerFlip_Click(Object sender, EventArgs e)
-        {
-            if (this.src_image == null) return;
-            Image img = this.src_image;
-            img.RotateFlip(RotateFlipType.Rotate180FlipY);
-            picImage.Invalidate();
-        }
-
-        private void btnHorFlip_Click(Object sender, EventArgs e)
-        {
-            if (this.src_image == null) return;
-            Image img = this.src_image;
-            img.RotateFlip(RotateFlipType.Rotate180FlipX);
-            picImage.Invalidate();
-        }
-
+        /// <summary>
+        /// 打开图片
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOpenImage_Click(Object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -396,11 +370,138 @@ namespace ImageTools_GDI
             }
         }
 
+        private void ScrnTools_ToolsClickEvent(Object sender, EventArgs e)
+        {
+            if ((int)sender == 1)
+            {
+                Point r = new Point();
+                Bitmap image = new Bitmap(draw_rect.Width, draw_rect.Height);
+                Graphics imgGh = Graphics.FromImage(image);
+                r.X = draw_rect.X;
+                r.Y = draw_rect.Y;
+                r = panel1.PointToScreen(r);
+                imgGh.CopyFromScreen(r, new Point(0, 0), new Size(draw_rect.Width, draw_rect.Height));
+
+                picScrn.Image = image;
+            }
+            bitmap = new Bitmap(panel1.Width, panel1.Height);
+            graph = Graphics.FromImage(bitmap);
+            graph.Clear(Color.Transparent);
+            panel1.BackgroundImage = bitmap;
+            draw_rect = new Rectangle(0, 0, 0, 0);
+            ScrnTools.Visible = false;
+            ScrnTools.Dispose();
+            panel1.Controls.Clear();
+            show_tools = false;
+        }
+
+        /// <summary>
+        /// 向左旋转90°
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnLeftRotate90_Click(Object sender, EventArgs e)
+        {
+            if (this.src_image == null) return;
+            Image img = this.src_image;
+            img.RotateFlip(RotateFlipType.Rotate270FlipNone);
+            picImage.Invalidate();
+        }
+
+        /// <summary>
+        /// 向右旋转90°
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnRightRotate90_Click(Object sender, EventArgs e)
+        {
+            if (this.src_image == null) return;
+            Image img = this.src_image;
+            img.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            picImage.Invalidate();
+        }
+
+        /// <summary>
+        /// 向右旋转1°
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (tbRotate.Value >= 360) return;
+            tbRotate.Value++;
+        }
+
+        /// <summary>
+        /// 向左旋转1°
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSub_Click(object sender, EventArgs e)
+        {
+            if (tbRotate.Value <= 0) return;
+            tbRotate.Value--;
+        }
+
+        /// <summary>
+        /// 图片旋转
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tbRotate_Scroll(Object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// 旋转图片
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tbRotate_ValueChanged(object sender, EventArgs e)
+        {
+            if (this.src_image == null) return;
+            var angle = tbRotate.Value;
+            label2.Text = $"{angle}°";
+            picImage.Invalidate();
+        }
+
+        /// <summary>
+        /// 垂直翻转
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnVerFlip_Click(Object sender, EventArgs e)
+        {
+            if (this.src_image == null) return;
+            Image img = this.src_image;
+            img.RotateFlip(RotateFlipType.Rotate180FlipY);
+            picImage.Invalidate();
+        }
+
+        /// <summary>
+        /// 水平翻转
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnHorFlip_Click(Object sender, EventArgs e)
+        {
+            if (this.src_image == null) return;
+            Image img = this.src_image;
+            img.RotateFlip(RotateFlipType.Rotate180FlipX);
+            picImage.Invalidate();
+        }
+
+        /// <summary>
+        /// 画布重绘
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void picImage_Paint(Object sender, PaintEventArgs e)
         {
             base.OnPaint(e);
             if (src_image == null) return;
-            if(width<=10 || height <= 10)
+            if (width <= 10 || height <= 10)
             {
                 width = rect.Width;
                 height = rect.Height;
@@ -416,18 +517,18 @@ namespace ImageTools_GDI
                 pen = new Pen(Color.Red, 2.0f);
                 var rect = GetA4Rectangle();
                 e.Graphics.DrawRectangle(pen, rect);
-                e.Graphics.DrawString($"width:{rect.Width}", new Font("微软雅黑", 10), new SolidBrush(Color.Red), new Point(panel1.Width - 85, 0));
-                e.Graphics.DrawString($"height:{rect.Height}", new Font("微软雅黑", 10), new SolidBrush(Color.Red), new Point(panel1.Width - 85, 15));
-                //pen = new Pen(Color.Red, 3.0f);
-                //for (int i = 0; i < pointList.Count; i++)
-                //{
-                //    e.Graphics.DrawRectangle(pen, new Rectangle(pointList[i],new Size(3,3)));
-                //}
+                e.Graphics.DrawString($"width:{rect.Width}", new Font("微软雅黑", 7), new SolidBrush(Color.Red), new Point(panel1.Width - 80, 0));
+                e.Graphics.DrawString($"height:{rect.Height}", new Font("微软雅黑", 7), new SolidBrush(Color.Red), new Point(panel1.Width - 80, 10));
             }
-            e.Graphics.DrawString($"width:{rect.Width}", new Font("微软雅黑", 10), new SolidBrush(Color.Red), new Point(0, 0));
-            e.Graphics.DrawString($"height:{rect.Height}", new Font("微软雅黑", 10), new SolidBrush(Color.Red), new Point(0, 15));
+            e.Graphics.DrawString($"width:{rect.Width}", new Font("微软雅黑", 7), new SolidBrush(Color.Black), new Point(0, 0));
+            e.Graphics.DrawString($"height:{rect.Height}", new Font("微软雅黑", 7), new SolidBrush(Color.Black), new Point(0, 15));
         }
 
+        /// <summary>
+        /// 截图
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCutPic_Click(Object sender, EventArgs e)
         {
             if (PrScrn() == 1)
@@ -437,18 +538,122 @@ namespace ImageTools_GDI
                     picScrn.Image = Clipboard.GetImage();
                 }
             }
-            //if (isCut)
-            //{
-            //    isCut = false;
-            //    btnCutPic.BackColor = Color.Goldenrod;
-            //}
-            //else
-            //{
-            //    isCut = true;
-            //    btnCutPic.BackColor = Color.DarkGoldenrod;
-            //}
         }
 
+        /// <summary>
+        /// 画布大小改变
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FrmScrn_SizeChanged(Object sender, EventArgs e)
+        {
+            A4_FillImageModel();
+        }
+
+        /// <summary>
+        /// 启用A4操作区
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cbA4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbA4.Checked)
+            {
+                btnA4Fill.Enabled = true;
+                btnA4LocationBottom.Enabled = true;
+                btnA4LocationCenter.Enabled = true;
+                btnA4LocationTop.Enabled = true;
+                btnA4Zoom.Enabled = true;
+            }
+            else
+            {
+                btnA4Fill.Enabled = false;
+                btnA4LocationBottom.Enabled = false;
+                btnA4LocationCenter.Enabled = false;
+                btnA4LocationTop.Enabled = false;
+                btnA4Zoom.Enabled = false;
+            }
+            A4_FillImageModel();
+        }
+
+        /// <summary>
+        /// 裁剪图片
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCut_Click(object sender, EventArgs e)
+        {
+            Point r = new Point();
+            var a4 = GetA4Rectangle();
+            Bitmap image = new Bitmap(a4.Width - 2, a4.Height - 2);
+            Graphics imgGh = Graphics.FromImage(image);
+            r.X = a4.X + 1;
+            r.Y = a4.Y + 1;
+            r = panel1.PointToScreen(r);
+            imgGh.CopyFromScreen(r, new Point(0, 0), new Size(a4.Width - 2, a4.Height - 2));
+
+            picScrn.Image = image;
+        }
+
+        /// <summary>
+        /// 图片大小跟所A4工作区大小
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cbA4SizeFollow_CheckedChanged(object sender, EventArgs e)
+        {
+            A4_FillImageModel();
+        }
+
+        /// <summary>
+        /// 图片位置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnA4Location_Click(object sender, EventArgs e)
+
+        {
+            var button = (Button)sender;
+            var name = button.Name;
+            switch (name)
+            {
+                case "btnA4LocationTop":
+                    img_location = 0;
+                    break;
+                case "btnA4LocationCenter":
+                    img_location = 1;
+                    break;
+                case "btnA4LocationBottom":
+                    img_location = 2;
+                    break;
+                default:
+                    break;
+            }
+            ImageLocation();
+        }
+
+        /// <summary>
+        /// 图片缩放模式
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnA4ImageStyleMode_Click(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            var name = button.Name;
+            if (name == "btnA4Fill")
+            {
+                img_style_model = 0;
+            }
+            else if (name == "btnA4Zoom")
+            {
+                img_style_model = 1;
+            }
+            A4_FillImageModel();
+        }
+        #endregion
+
+        #region 方法
         /// <summary>
         /// 获取A4大小矩形
         /// </summary>
@@ -467,15 +672,14 @@ namespace ImageTools_GDI
                 int rectHeight = panel1.Height;
 
 
-                //var newRectLocation = new Point();
-                
+                var newRectLocation = new Point();
+
                 var res = AutoSize(rectWidth, rectHeight, a4width, a4height);
 
                 var midPoint = panel1.Width / 2;
                 var rectMidPoint = (res["Width"] - 4) / 2;
                 var localX = midPoint - rectMidPoint;
-                Rectangle a4;
-                a4 = new Rectangle(localX, 1, res["Width"] - 4, res["Height"] - 4);
+                Rectangle a4 = new Rectangle(localX, 1, res["Width"] - 4, res["Height"] - 4);
                 //矩形四点坐标
                 //var p1 = a4.Location;
                 //var p2 = new Point(a4.X+a4.Width-3,a4.Y);
@@ -485,7 +689,15 @@ namespace ImageTools_GDI
             }
         }
 
-        public new Dictionary<string, int> AutoSize(int spcWidth, int spcHeight, int orgWidth, int orgHeight)
+        /// <summary>
+        /// 获取指定区域内最大同比矩形
+        /// </summary>
+        /// <param name="spcWidth"></param>
+        /// <param name="spcHeight"></param>
+        /// <param name="orgWidth"></param>
+        /// <param name="orgHeight"></param>
+        /// <returns></returns>
+        public static Dictionary<string, int> AutoSize(int spcWidth, int spcHeight, int orgWidth, int orgHeight)
         {
             Dictionary<string, int> size = new Dictionary<string, int>();
             // 原始宽高在指定宽高范围内，不作任何处理 
@@ -521,14 +733,6 @@ namespace ImageTools_GDI
             return size;
         }
 
-        private void tbRotate_Scroll(Object sender, EventArgs e)
-        {
-            if (this.src_image == null) return;
-            var angle = tbRotate.Value;
-            label2.Text = $"{angle}°";
-            picImage.Invalidate();
-        }
-
         /// <summary>
         /// 以逆时针为方向对图像进行旋转
         /// </summary>
@@ -539,6 +743,9 @@ namespace ImageTools_GDI
         {
             using (Matrix m = new Matrix())
             {
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+                g.PixelOffsetMode = PixelOffsetMode.Half;
                 m.RotateAt(angle, new PointF(r.Left + (r.Width / 2),
                                           r.Top + (r.Height / 2)));
                 g.Transform = m;
@@ -547,31 +754,31 @@ namespace ImageTools_GDI
             }
         }
 
-        private void FrmScrn_SizeChanged(Object sender, EventArgs e)
+        /// <summary>
+        /// 将图片填充至指定大小矩形内
+        /// </summary>
+        private void A4_FillImage2Rect()
         {
-            var x = (picImage.Width / 2) - (width / 2);
-            var y = (picImage.Height / 2) - (height / 2);
-            rect = new Rectangle(x, y, width, height);
-            picImage.Invalidate();
+            if (src_image == null) return;
+            var a4Rect = GetA4Rectangle();
+            var res = AutoSize(a4Rect.Width, a4Rect.Height, src_image.Width, src_image.Height);
+            rect = new Rectangle(a4Rect.X + 2, a4Rect.Y + 2, res["Width"] - 4, res["Height"] - 4);
+            width = rect.Width;
+            height = rect.Height;
         }
 
-        private void cbA4_CheckedChanged(object sender, EventArgs e)
+        /// <summary>
+        /// 图片缩放模式
+        /// </summary>
+        private void A4_FillImageModel()
         {
+            if (cbA4.Checked && cbA4SizeFollow.Checked)
+                A4_FillImage2Rect();
+            else
+                img_location = 1;
+            ImageLocation();
+            ImageStyleModel();
             picImage.Invalidate();
-        }
-
-        private void btnCut_Click(object sender, EventArgs e)
-        {
-            Point r = new Point();
-            var a4 = GetA4Rectangle();
-            Bitmap image = new Bitmap(a4.Width-2, a4.Height-2);
-            Graphics imgGh = Graphics.FromImage(image);
-            r.X = a4.X+1;
-            r.Y = a4.Y+1;
-            r = panel1.PointToScreen(r);
-            imgGh.CopyFromScreen(r, new Point(0, 0), new Size(a4.Width-2, a4.Height-2));
-
-            picScrn.Image = image;
         }
 
         /// <summary>
@@ -591,6 +798,7 @@ namespace ImageTools_GDI
                 g.ResetTransform();
             }
         }
+
         /// <summary>
         /// 获取最小外界矩形
         /// </summary>
@@ -600,7 +808,7 @@ namespace ImageTools_GDI
         /// <returns></returns>
         public Rectangle GetRotateRectangle(int width, int height, float angle)
         {
-            double radian = angle * Math.PI / 180 ;
+            double radian = angle * Math.PI / 180;
             double cos = Math.Cos(radian);
             double sin = Math.Sin(radian);
             //只需要考虑到第四象限和第三象限的情况取大值(中间用绝对值就可以包括第一和第二象限)
@@ -608,5 +816,53 @@ namespace ImageTools_GDI
             int newHeight = (int)(Math.Max(Math.Abs(width * sin - height * cos), Math.Abs(width * sin + height * cos)));
             return new Rectangle(0, 0, newWidth, newHeight);
         }
+
+        /// <summary>
+        /// 缩放模式
+        /// </summary>
+        private void ImageStyleModel()
+        {
+            switch (img_style_model)
+            {
+                case 0:
+                    var a4 = GetA4Rectangle();
+                    width = a4.Width;
+                    height = a4.Height;
+                    rect.Location = new Point((picImage.Width / 2) - (width / 2) - 1, 3);
+                    ImageLocation();
+                    break;
+                case 1:
+                    if (rect == null) break;
+                    width = rect.Width;
+                    height = rect.Height;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 图片定位
+        /// </summary>
+        private void ImageLocation()
+        {
+            if (img_style_model == 0) return;
+            switch (img_location)
+            {
+                case 0:
+                    rect.Location = new Point((picImage.Width / 2) - (width / 2) - 1, 3);
+                    break;
+                case 1:
+                    rect.Location = new Point((picImage.Width / 2) - (width / 2) - 1, (picImage.Height / 2) - (height / 2) + 3);
+                    break;
+                case 2:
+                    rect.Location = new Point((picImage.Width / 2) - (width / 2) - 1, picImage.Height - height - 5);
+                    break;
+                default:
+                    break;
+            }
+            picImage.Invalidate();
+        }
+        #endregion
     }
 }
