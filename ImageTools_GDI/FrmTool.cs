@@ -15,7 +15,7 @@ using ImageTools_GDI.control;
 
 namespace ImageTools_GDI
 {
-    public partial class FrmTool : Form
+    public partial class FrmTool : MetroFramework.Forms.MetroForm
     {
         #region args
 
@@ -131,7 +131,6 @@ namespace ImageTools_GDI
             panel1.BringToFront();
             panel1.AllowDrop = true;
             picImage.Controls.Add(panel1);
-            tabControl1.SelectedIndex = 1;
         }
 
         #region 事件
@@ -509,7 +508,7 @@ namespace ImageTools_GDI
 
             rect.Width = width;
             rect.Height = height;
-            e.Graphics.Clear(this.BackColor);
+            e.Graphics.Clear(Color.White);
             RoatetImage(orig_image, e.Graphics, rect, tbRotate.Value);
 
             if (cbA4.Checked)
@@ -852,6 +851,16 @@ namespace ImageTools_GDI
                 string name = fsd.FileName;
                 picScrn.Image.Save(name);
             }
+        }
+
+        private void FrmTool_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbRotate_Scroll(object sender, ScrollEventArgs e)
+        {
+
         }
 
         /// <summary>

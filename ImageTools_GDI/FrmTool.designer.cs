@@ -33,17 +33,10 @@ namespace ImageTools_GDI
             this.btnScrn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panelImage = new System.Windows.Forms.Panel();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnA4Zoom = new System.Windows.Forms.Button();
-            this.btnA4Fill = new System.Windows.Forms.Button();
-            this.btnA4LocationCenter = new System.Windows.Forms.Button();
-            this.btnA4LocationBottom = new System.Windows.Forms.Button();
-            this.btnA4LocationTop = new System.Windows.Forms.Button();
-            this.cbA4SizeFollow = new System.Windows.Forms.CheckBox();
-            this.cbA4 = new System.Windows.Forms.CheckBox();
+            this.btnA4LocationBottom = new MetroFramework.Controls.MetroButton();
+            this.btnA4LocationCenter = new MetroFramework.Controls.MetroButton();
+            this.btnA4LocationTop = new MetroFramework.Controls.MetroButton();
             this.picScrn = new System.Windows.Forms.PictureBox();
             this.picImage = new System.Windows.Forms.PictureBox();
             this.panelScrnBar = new System.Windows.Forms.Panel();
@@ -52,7 +45,6 @@ namespace ImageTools_GDI
             this.btnSub = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.tbRotate = new System.Windows.Forms.TrackBar();
             this.btnOpenImage = new System.Windows.Forms.Button();
             this.btnCut = new System.Windows.Forms.Button();
             this.btnCutPic = new System.Windows.Forms.Button();
@@ -60,36 +52,44 @@ namespace ImageTools_GDI
             this.btnVerFlip = new System.Windows.Forms.Button();
             this.btnRightRotate90 = new System.Windows.Forms.Button();
             this.btnLeftRotate90 = new System.Windows.Forms.Button();
-            this.btnImgSave = new System.Windows.Forms.Button();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
+            this.metroTabPage1 = new MetroFramework.Controls.MetroTabPage();
+            this.metroTabPage2 = new MetroFramework.Controls.MetroTabPage();
+            this.cbA4SizeFollow = new MetroFramework.Controls.MetroCheckBox();
+            this.cbA4 = new MetroFramework.Controls.MetroCheckBox();
+            this.btnA4Fill = new MetroFramework.Controls.MetroButton();
+            this.btnA4Zoom = new MetroFramework.Controls.MetroButton();
+            this.tbRotate = new MetroFramework.Controls.MetroTrackBar();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picScrn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
             this.panelScrnBar.SuspendLayout();
             this.btntest.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbRotate)).BeginInit();
+            this.metroTabControl1.SuspendLayout();
+            this.metroTabPage1.SuspendLayout();
+            this.metroTabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnScrn
             // 
+            this.btnScrn.BackColor = System.Drawing.Color.White;
             this.btnScrn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnScrn.BackgroundImage")));
             this.btnScrn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnScrn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnScrn.FlatAppearance.BorderSize = 0;
             this.btnScrn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnScrn.Location = new System.Drawing.Point(8, 6);
+            this.btnScrn.Location = new System.Drawing.Point(3, 3);
             this.btnScrn.Name = "btnScrn";
             this.btnScrn.Size = new System.Drawing.Size(25, 25);
             this.btnScrn.TabIndex = 0;
-            this.btnScrn.UseVisualStyleBackColor = true;
+            this.btnScrn.UseVisualStyleBackColor = false;
             this.btnScrn.Click += new System.EventHandler(this.btnScrn_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 38);
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(2, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 12);
             this.label1.TabIndex = 1;
@@ -100,157 +100,83 @@ namespace ImageTools_GDI
             this.panelImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelImage.BackColor = System.Drawing.Color.White;
             this.panelImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panelImage.Location = new System.Drawing.Point(9, 53);
+            this.panelImage.Location = new System.Drawing.Point(4, 50);
             this.panelImage.Name = "panelImage";
-            this.panelImage.Size = new System.Drawing.Size(965, 498);
+            this.panelImage.Size = new System.Drawing.Size(1067, 478);
             this.panelImage.TabIndex = 2;
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(990, 585);
-            this.tabControl1.TabIndex = 3;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.btnScrn);
-            this.tabPage1.Controls.Add(this.panelImage);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(982, 559);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.btnImgSave);
-            this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Controls.Add(this.picScrn);
-            this.tabPage2.Controls.Add(this.picImage);
-            this.tabPage2.Controls.Add(this.panelScrnBar);
-            this.tabPage2.Controls.Add(this.btntest);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(982, 559);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.BackColor = System.Drawing.Color.White;
+            this.groupBox1.Controls.Add(this.cbA4);
+            this.groupBox1.Controls.Add(this.cbA4SizeFollow);
+            this.groupBox1.Controls.Add(this.btnA4LocationBottom);
             this.groupBox1.Controls.Add(this.btnA4Zoom);
             this.groupBox1.Controls.Add(this.btnA4Fill);
             this.groupBox1.Controls.Add(this.btnA4LocationCenter);
-            this.groupBox1.Controls.Add(this.btnA4LocationBottom);
             this.groupBox1.Controls.Add(this.btnA4LocationTop);
-            this.groupBox1.Controls.Add(this.cbA4SizeFollow);
-            this.groupBox1.Controls.Add(this.cbA4);
-            this.groupBox1.Location = new System.Drawing.Point(824, 178);
+            this.groupBox1.Location = new System.Drawing.Point(921, 171);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(150, 139);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "A4";
             // 
-            // btnA4Zoom
+            // btnA4LocationBottom
             // 
-            this.btnA4Zoom.Enabled = false;
-            this.btnA4Zoom.Location = new System.Drawing.Point(87, 81);
-            this.btnA4Zoom.Name = "btnA4Zoom";
-            this.btnA4Zoom.Size = new System.Drawing.Size(57, 23);
-            this.btnA4Zoom.TabIndex = 4;
-            this.btnA4Zoom.Text = "缩放";
-            this.btnA4Zoom.UseVisualStyleBackColor = true;
-            this.btnA4Zoom.Click += new System.EventHandler(this.btnA4ImageStyleMode_Click);
-            // 
-            // btnA4Fill
-            // 
-            this.btnA4Fill.Enabled = false;
-            this.btnA4Fill.Location = new System.Drawing.Point(87, 47);
-            this.btnA4Fill.Name = "btnA4Fill";
-            this.btnA4Fill.Size = new System.Drawing.Size(57, 23);
-            this.btnA4Fill.TabIndex = 4;
-            this.btnA4Fill.Text = "填充";
-            this.btnA4Fill.UseVisualStyleBackColor = true;
-            this.btnA4Fill.Click += new System.EventHandler(this.btnA4ImageStyleMode_Click);
+            this.btnA4LocationBottom.FontSize = MetroFramework.MetroLabelSize.Small;
+            this.btnA4LocationBottom.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.btnA4LocationBottom.Highlight = false;
+            this.btnA4LocationBottom.Location = new System.Drawing.Point(9, 105);
+            this.btnA4LocationBottom.Name = "btnA4LocationBottom";
+            this.btnA4LocationBottom.Size = new System.Drawing.Size(57, 23);
+            this.btnA4LocationBottom.Style = MetroFramework.MetroColorStyle.Blue;
+            this.btnA4LocationBottom.StyleManager = null;
+            this.btnA4LocationBottom.TabIndex = 5;
+            this.btnA4LocationBottom.Text = "底部";
+            this.btnA4LocationBottom.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.btnA4LocationBottom.Click += new System.EventHandler(this.btnA4Location_Click);
             // 
             // btnA4LocationCenter
             // 
-            this.btnA4LocationCenter.Enabled = false;
-            this.btnA4LocationCenter.Location = new System.Drawing.Point(9, 77);
+            this.btnA4LocationCenter.FontSize = MetroFramework.MetroLabelSize.Small;
+            this.btnA4LocationCenter.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.btnA4LocationCenter.Highlight = false;
+            this.btnA4LocationCenter.Location = new System.Drawing.Point(9, 74);
             this.btnA4LocationCenter.Name = "btnA4LocationCenter";
             this.btnA4LocationCenter.Size = new System.Drawing.Size(57, 23);
-            this.btnA4LocationCenter.TabIndex = 4;
+            this.btnA4LocationCenter.Style = MetroFramework.MetroColorStyle.Blue;
+            this.btnA4LocationCenter.StyleManager = null;
+            this.btnA4LocationCenter.TabIndex = 5;
             this.btnA4LocationCenter.Text = "居中";
-            this.btnA4LocationCenter.UseVisualStyleBackColor = true;
+            this.btnA4LocationCenter.Theme = MetroFramework.MetroThemeStyle.Light;
             this.btnA4LocationCenter.Click += new System.EventHandler(this.btnA4Location_Click);
-            // 
-            // btnA4LocationBottom
-            // 
-            this.btnA4LocationBottom.Enabled = false;
-            this.btnA4LocationBottom.Location = new System.Drawing.Point(9, 109);
-            this.btnA4LocationBottom.Name = "btnA4LocationBottom";
-            this.btnA4LocationBottom.Size = new System.Drawing.Size(57, 23);
-            this.btnA4LocationBottom.TabIndex = 4;
-            this.btnA4LocationBottom.Text = "底部";
-            this.btnA4LocationBottom.UseVisualStyleBackColor = true;
-            this.btnA4LocationBottom.Click += new System.EventHandler(this.btnA4Location_Click);
             // 
             // btnA4LocationTop
             // 
-            this.btnA4LocationTop.Enabled = false;
-            this.btnA4LocationTop.Location = new System.Drawing.Point(9, 45);
+            this.btnA4LocationTop.FontSize = MetroFramework.MetroLabelSize.Small;
+            this.btnA4LocationTop.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.btnA4LocationTop.Highlight = false;
+            this.btnA4LocationTop.Location = new System.Drawing.Point(9, 43);
             this.btnA4LocationTop.Name = "btnA4LocationTop";
             this.btnA4LocationTop.Size = new System.Drawing.Size(57, 23);
-            this.btnA4LocationTop.TabIndex = 4;
+            this.btnA4LocationTop.Style = MetroFramework.MetroColorStyle.Blue;
+            this.btnA4LocationTop.StyleManager = null;
+            this.btnA4LocationTop.TabIndex = 5;
             this.btnA4LocationTop.Text = "顶部";
-            this.btnA4LocationTop.UseVisualStyleBackColor = true;
+            this.btnA4LocationTop.Theme = MetroFramework.MetroThemeStyle.Light;
             this.btnA4LocationTop.Click += new System.EventHandler(this.btnA4Location_Click);
-            // 
-            // cbA4SizeFollow
-            // 
-            this.cbA4SizeFollow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbA4SizeFollow.AutoSize = true;
-            this.cbA4SizeFollow.Checked = true;
-            this.cbA4SizeFollow.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbA4SizeFollow.Enabled = false;
-            this.cbA4SizeFollow.Location = new System.Drawing.Point(72, 20);
-            this.cbA4SizeFollow.Name = "cbA4SizeFollow";
-            this.cbA4SizeFollow.Size = new System.Drawing.Size(72, 16);
-            this.cbA4SizeFollow.TabIndex = 3;
-            this.cbA4SizeFollow.Text = "大小跟随";
-            this.cbA4SizeFollow.UseVisualStyleBackColor = true;
-            this.cbA4SizeFollow.CheckedChanged += new System.EventHandler(this.cbA4SizeFollow_CheckedChanged);
-            // 
-            // cbA4
-            // 
-            this.cbA4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbA4.AutoSize = true;
-            this.cbA4.Location = new System.Drawing.Point(9, 20);
-            this.cbA4.Name = "cbA4";
-            this.cbA4.Size = new System.Drawing.Size(36, 16);
-            this.cbA4.TabIndex = 3;
-            this.cbA4.Text = "A4";
-            this.cbA4.UseVisualStyleBackColor = true;
-            this.cbA4.CheckedChanged += new System.EventHandler(this.cbA4_CheckedChanged);
             // 
             // picScrn
             // 
             this.picScrn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picScrn.BackColor = System.Drawing.Color.White;
             this.picScrn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picScrn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picScrn.Location = new System.Drawing.Point(825, 42);
+            this.picScrn.Location = new System.Drawing.Point(922, 35);
             this.picScrn.Name = "picScrn";
             this.picScrn.Size = new System.Drawing.Size(149, 130);
             this.picScrn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -262,12 +188,12 @@ namespace ImageTools_GDI
             this.picImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.picImage.BackColor = System.Drawing.Color.LightGray;
+            this.picImage.BackColor = System.Drawing.Color.White;
             this.picImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picImage.Cursor = System.Windows.Forms.Cursors.Default;
-            this.picImage.Location = new System.Drawing.Point(4, 42);
+            this.picImage.Location = new System.Drawing.Point(2, 35);
             this.picImage.Name = "picImage";
-            this.picImage.Size = new System.Drawing.Size(815, 511);
+            this.picImage.Size = new System.Drawing.Size(913, 503);
             this.picImage.TabIndex = 1;
             this.picImage.TabStop = false;
             this.picImage.Paint += new System.Windows.Forms.PaintEventHandler(this.picImage_Paint);
@@ -278,7 +204,7 @@ namespace ImageTools_GDI
             this.panelScrnBar.BackColor = System.Drawing.Color.Goldenrod;
             this.panelScrnBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelScrnBar.Controls.Add(this.label3);
-            this.panelScrnBar.Location = new System.Drawing.Point(825, 6);
+            this.panelScrnBar.Location = new System.Drawing.Point(922, 3);
             this.panelScrnBar.Name = "panelScrnBar";
             this.panelScrnBar.Size = new System.Drawing.Size(149, 30);
             this.panelScrnBar.TabIndex = 0;
@@ -298,10 +224,10 @@ namespace ImageTools_GDI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btntest.BackColor = System.Drawing.Color.Goldenrod;
             this.btntest.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btntest.Controls.Add(this.tbRotate);
             this.btntest.Controls.Add(this.btnSub);
             this.btntest.Controls.Add(this.btnAdd);
             this.btntest.Controls.Add(this.label2);
-            this.btntest.Controls.Add(this.tbRotate);
             this.btntest.Controls.Add(this.btnOpenImage);
             this.btntest.Controls.Add(this.btnCut);
             this.btntest.Controls.Add(this.btnCutPic);
@@ -309,9 +235,9 @@ namespace ImageTools_GDI
             this.btntest.Controls.Add(this.btnVerFlip);
             this.btntest.Controls.Add(this.btnRightRotate90);
             this.btntest.Controls.Add(this.btnLeftRotate90);
-            this.btntest.Location = new System.Drawing.Point(4, 6);
+            this.btntest.Location = new System.Drawing.Point(2, 3);
             this.btntest.Name = "btntest";
-            this.btntest.Size = new System.Drawing.Size(815, 30);
+            this.btntest.Size = new System.Drawing.Size(913, 30);
             this.btntest.TabIndex = 0;
             // 
             // btnSub
@@ -361,16 +287,6 @@ namespace ImageTools_GDI
             this.label2.TabIndex = 2;
             this.label2.Text = "0°";
             // 
-            // tbRotate
-            // 
-            this.tbRotate.Location = new System.Drawing.Point(144, 4);
-            this.tbRotate.Maximum = 360;
-            this.tbRotate.Name = "tbRotate";
-            this.tbRotate.Size = new System.Drawing.Size(211, 45);
-            this.tbRotate.TabIndex = 1;
-            this.tbRotate.Scroll += new System.EventHandler(this.tbRotate_Scroll);
-            this.tbRotate.ValueChanged += new System.EventHandler(this.tbRotate_ValueChanged);
-            // 
             // btnOpenImage
             // 
             this.btnOpenImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -383,7 +299,7 @@ namespace ImageTools_GDI
             this.btnOpenImage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Goldenrod;
             this.btnOpenImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpenImage.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnOpenImage.Location = new System.Drawing.Point(756, 7);
+            this.btnOpenImage.Location = new System.Drawing.Point(854, 7);
             this.btnOpenImage.Name = "btnOpenImage";
             this.btnOpenImage.Size = new System.Drawing.Size(20, 15);
             this.btnOpenImage.TabIndex = 0;
@@ -403,7 +319,7 @@ namespace ImageTools_GDI
             this.btnCut.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Goldenrod;
             this.btnCut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCut.ForeColor = System.Drawing.Color.Black;
-            this.btnCut.Location = new System.Drawing.Point(785, 3);
+            this.btnCut.Location = new System.Drawing.Point(883, 3);
             this.btnCut.Name = "btnCut";
             this.btnCut.Size = new System.Drawing.Size(22, 20);
             this.btnCut.TabIndex = 0;
@@ -423,7 +339,7 @@ namespace ImageTools_GDI
             this.btnCutPic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCutPic.ForeColor = System.Drawing.SystemColors.Control;
             this.btnCutPic.Image = global::ImageTools_GDI.Properties.Resources.btnSelect;
-            this.btnCutPic.Location = new System.Drawing.Point(725, 3);
+            this.btnCutPic.Location = new System.Drawing.Point(823, 3);
             this.btnCutPic.Name = "btnCutPic";
             this.btnCutPic.Size = new System.Drawing.Size(20, 20);
             this.btnCutPic.TabIndex = 0;
@@ -499,31 +415,176 @@ namespace ImageTools_GDI
             this.btnLeftRotate90.UseVisualStyleBackColor = true;
             this.btnLeftRotate90.Click += new System.EventHandler(this.btnLeftRotate90_Click);
             // 
-            // btnImgSave
+            // metroTabControl1
             // 
-            this.btnImgSave.Location = new System.Drawing.Point(833, 341);
-            this.btnImgSave.Name = "btnImgSave";
-            this.btnImgSave.Size = new System.Drawing.Size(135, 23);
-            this.btnImgSave.TabIndex = 5;
-            this.btnImgSave.Text = "保存截图";
-            this.btnImgSave.UseVisualStyleBackColor = true;
-            this.btnImgSave.Click += new System.EventHandler(this.btnImgSave_Click);
+            this.metroTabControl1.Controls.Add(this.metroTabPage1);
+            this.metroTabControl1.Controls.Add(this.metroTabPage2);
+            this.metroTabControl1.CustomBackground = false;
+            this.metroTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.metroTabControl1.FontSize = MetroFramework.MetroTabControlSize.Medium;
+            this.metroTabControl1.FontWeight = MetroFramework.MetroTabControlWeight.Light;
+            this.metroTabControl1.Location = new System.Drawing.Point(20, 60);
+            this.metroTabControl1.Name = "metroTabControl1";
+            this.metroTabControl1.SelectedIndex = 0;
+            this.metroTabControl1.Size = new System.Drawing.Size(1082, 580);
+            this.metroTabControl1.Style = MetroFramework.MetroColorStyle.Blue;
+            this.metroTabControl1.StyleManager = null;
+            this.metroTabControl1.TabIndex = 4;
+            this.metroTabControl1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.metroTabControl1.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.metroTabControl1.UseStyleColors = false;
+            // 
+            // metroTabPage1
+            // 
+            this.metroTabPage1.Controls.Add(this.btnScrn);
+            this.metroTabPage1.Controls.Add(this.panelImage);
+            this.metroTabPage1.Controls.Add(this.label1);
+            this.metroTabPage1.CustomBackground = false;
+            this.metroTabPage1.HorizontalScrollbar = false;
+            this.metroTabPage1.HorizontalScrollbarBarColor = true;
+            this.metroTabPage1.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroTabPage1.HorizontalScrollbarSize = 10;
+            this.metroTabPage1.Location = new System.Drawing.Point(4, 36);
+            this.metroTabPage1.Name = "metroTabPage1";
+            this.metroTabPage1.Size = new System.Drawing.Size(1074, 540);
+            this.metroTabPage1.Style = MetroFramework.MetroColorStyle.Blue;
+            this.metroTabPage1.StyleManager = null;
+            this.metroTabPage1.TabIndex = 0;
+            this.metroTabPage1.Text = "截屏";
+            this.metroTabPage1.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.metroTabPage1.VerticalScrollbar = false;
+            this.metroTabPage1.VerticalScrollbarBarColor = true;
+            this.metroTabPage1.VerticalScrollbarHighlightOnWheel = false;
+            this.metroTabPage1.VerticalScrollbarSize = 10;
+            // 
+            // metroTabPage2
+            // 
+            this.metroTabPage2.Controls.Add(this.groupBox1);
+            this.metroTabPage2.Controls.Add(this.picScrn);
+            this.metroTabPage2.Controls.Add(this.panelScrnBar);
+            this.metroTabPage2.Controls.Add(this.btntest);
+            this.metroTabPage2.Controls.Add(this.picImage);
+            this.metroTabPage2.CustomBackground = false;
+            this.metroTabPage2.HorizontalScrollbar = false;
+            this.metroTabPage2.HorizontalScrollbarBarColor = true;
+            this.metroTabPage2.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroTabPage2.HorizontalScrollbarSize = 10;
+            this.metroTabPage2.Location = new System.Drawing.Point(4, 36);
+            this.metroTabPage2.Name = "metroTabPage2";
+            this.metroTabPage2.Size = new System.Drawing.Size(1074, 540);
+            this.metroTabPage2.Style = MetroFramework.MetroColorStyle.Blue;
+            this.metroTabPage2.StyleManager = null;
+            this.metroTabPage2.TabIndex = 1;
+            this.metroTabPage2.Text = "编辑";
+            this.metroTabPage2.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.metroTabPage2.VerticalScrollbar = false;
+            this.metroTabPage2.VerticalScrollbarBarColor = true;
+            this.metroTabPage2.VerticalScrollbarHighlightOnWheel = false;
+            this.metroTabPage2.VerticalScrollbarSize = 10;
+            // 
+            // cbA4SizeFollow
+            // 
+            this.cbA4SizeFollow.AutoSize = true;
+            this.cbA4SizeFollow.Checked = true;
+            this.cbA4SizeFollow.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbA4SizeFollow.CustomBackground = false;
+            this.cbA4SizeFollow.Enabled = false;
+            this.cbA4SizeFollow.FontSize = MetroFramework.MetroLinkSize.Small;
+            this.cbA4SizeFollow.FontWeight = MetroFramework.MetroLinkWeight.Regular;
+            this.cbA4SizeFollow.Location = new System.Drawing.Point(69, 20);
+            this.cbA4SizeFollow.Name = "cbA4SizeFollow";
+            this.cbA4SizeFollow.Size = new System.Drawing.Size(75, 15);
+            this.cbA4SizeFollow.Style = MetroFramework.MetroColorStyle.Blue;
+            this.cbA4SizeFollow.StyleManager = null;
+            this.cbA4SizeFollow.TabIndex = 6;
+            this.cbA4SizeFollow.Text = "大小跟随";
+            this.cbA4SizeFollow.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.cbA4SizeFollow.UseStyleColors = false;
+            this.cbA4SizeFollow.UseVisualStyleBackColor = true;
+            this.cbA4SizeFollow.CheckedChanged += new System.EventHandler(this.cbA4SizeFollow_CheckedChanged);
+            // 
+            // cbA4
+            // 
+            this.cbA4.AutoSize = true;
+            this.cbA4.CustomBackground = false;
+            this.cbA4.FontSize = MetroFramework.MetroLinkSize.Small;
+            this.cbA4.FontWeight = MetroFramework.MetroLinkWeight.Regular;
+            this.cbA4.Location = new System.Drawing.Point(9, 20);
+            this.cbA4.Name = "cbA4";
+            this.cbA4.Size = new System.Drawing.Size(37, 15);
+            this.cbA4.Style = MetroFramework.MetroColorStyle.Blue;
+            this.cbA4.StyleManager = null;
+            this.cbA4.TabIndex = 6;
+            this.cbA4.Text = "A4";
+            this.cbA4.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.cbA4.UseStyleColors = false;
+            this.cbA4.UseVisualStyleBackColor = true;
+            this.cbA4.CheckedChanged += new System.EventHandler(this.cbA4_CheckedChanged);
+            // 
+            // btnA4Fill
+            // 
+            this.btnA4Fill.Enabled = false;
+            this.btnA4Fill.FontSize = MetroFramework.MetroLabelSize.Small;
+            this.btnA4Fill.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.btnA4Fill.Highlight = false;
+            this.btnA4Fill.Location = new System.Drawing.Point(87, 43);
+            this.btnA4Fill.Name = "btnA4Fill";
+            this.btnA4Fill.Size = new System.Drawing.Size(57, 23);
+            this.btnA4Fill.Style = MetroFramework.MetroColorStyle.Blue;
+            this.btnA4Fill.StyleManager = null;
+            this.btnA4Fill.TabIndex = 5;
+            this.btnA4Fill.Text = "填充";
+            this.btnA4Fill.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.btnA4Fill.Click += new System.EventHandler(this.btnA4ImageStyleMode_Click);
+            // 
+            // btnA4Zoom
+            // 
+            this.btnA4Zoom.Enabled = false;
+            this.btnA4Zoom.FontSize = MetroFramework.MetroLabelSize.Small;
+            this.btnA4Zoom.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.btnA4Zoom.Highlight = false;
+            this.btnA4Zoom.Location = new System.Drawing.Point(87, 74);
+            this.btnA4Zoom.Name = "btnA4Zoom";
+            this.btnA4Zoom.Size = new System.Drawing.Size(57, 23);
+            this.btnA4Zoom.Style = MetroFramework.MetroColorStyle.Blue;
+            this.btnA4Zoom.StyleManager = null;
+            this.btnA4Zoom.TabIndex = 5;
+            this.btnA4Zoom.Text = "缩放";
+            this.btnA4Zoom.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.btnA4Zoom.Click += new System.EventHandler(this.btnA4ImageStyleMode_Click);
+            // 
+            // tbRotate
+            // 
+            this.tbRotate.BackColor = System.Drawing.Color.Goldenrod;
+            this.tbRotate.CustomBackground = true;
+            this.tbRotate.LargeChange = ((uint)(5u));
+            this.tbRotate.Location = new System.Drawing.Point(149, 3);
+            this.tbRotate.Maximum = 360;
+            this.tbRotate.Minimum = 0;
+            this.tbRotate.MouseWheelBarPartitions = 10;
+            this.tbRotate.Name = "tbRotate";
+            this.tbRotate.Size = new System.Drawing.Size(195, 23);
+            this.tbRotate.SmallChange = ((uint)(1u));
+            this.tbRotate.Style = MetroFramework.MetroColorStyle.Blue;
+            this.tbRotate.StyleManager = null;
+            this.tbRotate.TabIndex = 5;
+            this.tbRotate.Text = "metroTrackBar1";
+            this.tbRotate.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.tbRotate.Value = 0;
+            this.tbRotate.ValueChanged += new System.EventHandler(this.tbRotate_ValueChanged);
+            this.tbRotate.Scroll += new System.Windows.Forms.ScrollEventHandler(this.tbRotate_Scroll);
             // 
             // FrmTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(990, 585);
-            this.Controls.Add(this.tabControl1);
+            this.ClientSize = new System.Drawing.Size(1122, 660);
+            this.Controls.Add(this.metroTabControl1);
+            this.Location = new System.Drawing.Point(0, 0);
             this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "FrmTool";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FrmScrn";
+            this.Load += new System.EventHandler(this.FrmTool_Load);
             this.SizeChanged += new System.EventHandler(this.FrmScrn_SizeChanged);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picScrn)).EndInit();
@@ -532,7 +593,10 @@ namespace ImageTools_GDI
             this.panelScrnBar.PerformLayout();
             this.btntest.ResumeLayout(false);
             this.btntest.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbRotate)).EndInit();
+            this.metroTabControl1.ResumeLayout(false);
+            this.metroTabPage1.ResumeLayout(false);
+            this.metroTabPage1.PerformLayout();
+            this.metroTabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -542,9 +606,6 @@ namespace ImageTools_GDI
         private System.Windows.Forms.Button btnScrn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panelImage;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel btntest;
         private System.Windows.Forms.PictureBox picImage;
         private System.Windows.Forms.PictureBox picScrn;
@@ -555,20 +616,22 @@ namespace ImageTools_GDI
         private System.Windows.Forms.Button btnHorFlip;
         private System.Windows.Forms.Button btnVerFlip;
         private System.Windows.Forms.Button btnCutPic;
-        private System.Windows.Forms.TrackBar tbRotate;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox cbA4;
         private System.Windows.Forms.Button btnCut;
         private System.Windows.Forms.Button btnSub;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnA4Fill;
-        private System.Windows.Forms.Button btnA4LocationCenter;
-        private System.Windows.Forms.Button btnA4LocationBottom;
-        private System.Windows.Forms.Button btnA4LocationTop;
-        private System.Windows.Forms.CheckBox cbA4SizeFollow;
-        private System.Windows.Forms.Button btnA4Zoom;
-        private System.Windows.Forms.Button btnImgSave;
+        private MetroFramework.Controls.MetroTabControl metroTabControl1;
+        private MetroFramework.Controls.MetroTabPage metroTabPage1;
+        private MetroFramework.Controls.MetroTabPage metroTabPage2;
+        private MetroFramework.Controls.MetroButton btnA4LocationTop;
+        private MetroFramework.Controls.MetroCheckBox cbA4SizeFollow;
+        private MetroFramework.Controls.MetroButton btnA4LocationBottom;
+        private MetroFramework.Controls.MetroButton btnA4LocationCenter;
+        private MetroFramework.Controls.MetroCheckBox cbA4;
+        private MetroFramework.Controls.MetroButton btnA4Zoom;
+        private MetroFramework.Controls.MetroButton btnA4Fill;
+        private MetroFramework.Controls.MetroTrackBar tbRotate;
     }
 }
