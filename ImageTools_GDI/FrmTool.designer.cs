@@ -34,7 +34,11 @@ namespace ImageTools_GDI
             this.label1 = new System.Windows.Forms.Label();
             this.panelImage = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbA4 = new MetroFramework.Controls.MetroCheckBox();
+            this.cbA4SizeFollow = new MetroFramework.Controls.MetroCheckBox();
             this.btnA4LocationBottom = new MetroFramework.Controls.MetroButton();
+            this.btnA4Zoom = new MetroFramework.Controls.MetroButton();
+            this.btnA4Fill = new MetroFramework.Controls.MetroButton();
             this.btnA4LocationCenter = new MetroFramework.Controls.MetroButton();
             this.btnA4LocationTop = new MetroFramework.Controls.MetroButton();
             this.picScrn = new System.Windows.Forms.PictureBox();
@@ -42,6 +46,7 @@ namespace ImageTools_GDI
             this.panelScrnBar = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.btntest = new System.Windows.Forms.Panel();
+            this.tbRotate = new MetroFramework.Controls.MetroTrackBar();
             this.btnSub = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -55,11 +60,7 @@ namespace ImageTools_GDI
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.metroTabPage1 = new MetroFramework.Controls.MetroTabPage();
             this.metroTabPage2 = new MetroFramework.Controls.MetroTabPage();
-            this.cbA4SizeFollow = new MetroFramework.Controls.MetroCheckBox();
-            this.cbA4 = new MetroFramework.Controls.MetroCheckBox();
-            this.btnA4Fill = new MetroFramework.Controls.MetroButton();
-            this.btnA4Zoom = new MetroFramework.Controls.MetroButton();
-            this.tbRotate = new MetroFramework.Controls.MetroTrackBar();
+            this.btnImgSave = new MetroFramework.Controls.MetroButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picScrn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
@@ -125,6 +126,45 @@ namespace ImageTools_GDI
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "A4";
             // 
+            // cbA4
+            // 
+            this.cbA4.AutoSize = true;
+            this.cbA4.CustomBackground = false;
+            this.cbA4.FontSize = MetroFramework.MetroLinkSize.Small;
+            this.cbA4.FontWeight = MetroFramework.MetroLinkWeight.Regular;
+            this.cbA4.Location = new System.Drawing.Point(9, 20);
+            this.cbA4.Name = "cbA4";
+            this.cbA4.Size = new System.Drawing.Size(37, 15);
+            this.cbA4.Style = MetroFramework.MetroColorStyle.Blue;
+            this.cbA4.StyleManager = null;
+            this.cbA4.TabIndex = 6;
+            this.cbA4.Text = "A4";
+            this.cbA4.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.cbA4.UseStyleColors = false;
+            this.cbA4.UseVisualStyleBackColor = true;
+            this.cbA4.CheckedChanged += new System.EventHandler(this.cbA4_CheckedChanged);
+            // 
+            // cbA4SizeFollow
+            // 
+            this.cbA4SizeFollow.AutoSize = true;
+            this.cbA4SizeFollow.Checked = true;
+            this.cbA4SizeFollow.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbA4SizeFollow.CustomBackground = false;
+            this.cbA4SizeFollow.Enabled = false;
+            this.cbA4SizeFollow.FontSize = MetroFramework.MetroLinkSize.Small;
+            this.cbA4SizeFollow.FontWeight = MetroFramework.MetroLinkWeight.Regular;
+            this.cbA4SizeFollow.Location = new System.Drawing.Point(69, 20);
+            this.cbA4SizeFollow.Name = "cbA4SizeFollow";
+            this.cbA4SizeFollow.Size = new System.Drawing.Size(75, 15);
+            this.cbA4SizeFollow.Style = MetroFramework.MetroColorStyle.Blue;
+            this.cbA4SizeFollow.StyleManager = null;
+            this.cbA4SizeFollow.TabIndex = 6;
+            this.cbA4SizeFollow.Text = "大小跟随";
+            this.cbA4SizeFollow.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.cbA4SizeFollow.UseStyleColors = false;
+            this.cbA4SizeFollow.UseVisualStyleBackColor = true;
+            this.cbA4SizeFollow.CheckedChanged += new System.EventHandler(this.cbA4SizeFollow_CheckedChanged);
+            // 
             // btnA4LocationBottom
             // 
             this.btnA4LocationBottom.FontSize = MetroFramework.MetroLabelSize.Small;
@@ -139,6 +179,38 @@ namespace ImageTools_GDI
             this.btnA4LocationBottom.Text = "底部";
             this.btnA4LocationBottom.Theme = MetroFramework.MetroThemeStyle.Light;
             this.btnA4LocationBottom.Click += new System.EventHandler(this.btnA4Location_Click);
+            // 
+            // btnA4Zoom
+            // 
+            this.btnA4Zoom.Enabled = false;
+            this.btnA4Zoom.FontSize = MetroFramework.MetroLabelSize.Small;
+            this.btnA4Zoom.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.btnA4Zoom.Highlight = false;
+            this.btnA4Zoom.Location = new System.Drawing.Point(87, 74);
+            this.btnA4Zoom.Name = "btnA4Zoom";
+            this.btnA4Zoom.Size = new System.Drawing.Size(57, 23);
+            this.btnA4Zoom.Style = MetroFramework.MetroColorStyle.Blue;
+            this.btnA4Zoom.StyleManager = null;
+            this.btnA4Zoom.TabIndex = 5;
+            this.btnA4Zoom.Text = "缩放";
+            this.btnA4Zoom.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.btnA4Zoom.Click += new System.EventHandler(this.btnA4ImageStyleMode_Click);
+            // 
+            // btnA4Fill
+            // 
+            this.btnA4Fill.Enabled = false;
+            this.btnA4Fill.FontSize = MetroFramework.MetroLabelSize.Small;
+            this.btnA4Fill.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.btnA4Fill.Highlight = false;
+            this.btnA4Fill.Location = new System.Drawing.Point(87, 43);
+            this.btnA4Fill.Name = "btnA4Fill";
+            this.btnA4Fill.Size = new System.Drawing.Size(57, 23);
+            this.btnA4Fill.Style = MetroFramework.MetroColorStyle.Blue;
+            this.btnA4Fill.StyleManager = null;
+            this.btnA4Fill.TabIndex = 5;
+            this.btnA4Fill.Text = "填充";
+            this.btnA4Fill.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.btnA4Fill.Click += new System.EventHandler(this.btnA4ImageStyleMode_Click);
             // 
             // btnA4LocationCenter
             // 
@@ -239,6 +311,27 @@ namespace ImageTools_GDI
             this.btntest.Name = "btntest";
             this.btntest.Size = new System.Drawing.Size(913, 30);
             this.btntest.TabIndex = 0;
+            // 
+            // tbRotate
+            // 
+            this.tbRotate.BackColor = System.Drawing.Color.Goldenrod;
+            this.tbRotate.CustomBackground = true;
+            this.tbRotate.LargeChange = ((uint)(5u));
+            this.tbRotate.Location = new System.Drawing.Point(149, 3);
+            this.tbRotate.Maximum = 360;
+            this.tbRotate.Minimum = 0;
+            this.tbRotate.MouseWheelBarPartitions = 10;
+            this.tbRotate.Name = "tbRotate";
+            this.tbRotate.Size = new System.Drawing.Size(195, 23);
+            this.tbRotate.SmallChange = ((uint)(1u));
+            this.tbRotate.Style = MetroFramework.MetroColorStyle.Blue;
+            this.tbRotate.StyleManager = null;
+            this.tbRotate.TabIndex = 5;
+            this.tbRotate.Text = "metroTrackBar1";
+            this.tbRotate.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.tbRotate.Value = 0;
+            this.tbRotate.ValueChanged += new System.EventHandler(this.tbRotate_ValueChanged);
+            this.tbRotate.Scroll += new System.Windows.Forms.ScrollEventHandler(this.tbRotate_Scroll);
             // 
             // btnSub
             // 
@@ -385,7 +478,7 @@ namespace ImageTools_GDI
             // 
             this.btnRightRotate90.BackgroundImage = global::ImageTools_GDI.Properties.Resources.btnRotate90;
             this.btnRightRotate90.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnRightRotate90.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnRightRotate90.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRightRotate90.FlatAppearance.BorderSize = 0;
             this.btnRightRotate90.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Goldenrod;
             this.btnRightRotate90.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Goldenrod;
@@ -425,7 +518,7 @@ namespace ImageTools_GDI
             this.metroTabControl1.FontWeight = MetroFramework.MetroTabControlWeight.Light;
             this.metroTabControl1.Location = new System.Drawing.Point(20, 60);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 0;
+            this.metroTabControl1.SelectedIndex = 1;
             this.metroTabControl1.Size = new System.Drawing.Size(1082, 580);
             this.metroTabControl1.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroTabControl1.StyleManager = null;
@@ -459,6 +552,7 @@ namespace ImageTools_GDI
             // 
             // metroTabPage2
             // 
+            this.metroTabPage2.Controls.Add(this.btnImgSave);
             this.metroTabPage2.Controls.Add(this.groupBox1);
             this.metroTabPage2.Controls.Add(this.picScrn);
             this.metroTabPage2.Controls.Add(this.panelScrnBar);
@@ -482,97 +576,20 @@ namespace ImageTools_GDI
             this.metroTabPage2.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage2.VerticalScrollbarSize = 10;
             // 
-            // cbA4SizeFollow
+            // btnImgSave
             // 
-            this.cbA4SizeFollow.AutoSize = true;
-            this.cbA4SizeFollow.Checked = true;
-            this.cbA4SizeFollow.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbA4SizeFollow.CustomBackground = false;
-            this.cbA4SizeFollow.Enabled = false;
-            this.cbA4SizeFollow.FontSize = MetroFramework.MetroLinkSize.Small;
-            this.cbA4SizeFollow.FontWeight = MetroFramework.MetroLinkWeight.Regular;
-            this.cbA4SizeFollow.Location = new System.Drawing.Point(69, 20);
-            this.cbA4SizeFollow.Name = "cbA4SizeFollow";
-            this.cbA4SizeFollow.Size = new System.Drawing.Size(75, 15);
-            this.cbA4SizeFollow.Style = MetroFramework.MetroColorStyle.Blue;
-            this.cbA4SizeFollow.StyleManager = null;
-            this.cbA4SizeFollow.TabIndex = 6;
-            this.cbA4SizeFollow.Text = "大小跟随";
-            this.cbA4SizeFollow.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.cbA4SizeFollow.UseStyleColors = false;
-            this.cbA4SizeFollow.UseVisualStyleBackColor = true;
-            this.cbA4SizeFollow.CheckedChanged += new System.EventHandler(this.cbA4SizeFollow_CheckedChanged);
-            // 
-            // cbA4
-            // 
-            this.cbA4.AutoSize = true;
-            this.cbA4.CustomBackground = false;
-            this.cbA4.FontSize = MetroFramework.MetroLinkSize.Small;
-            this.cbA4.FontWeight = MetroFramework.MetroLinkWeight.Regular;
-            this.cbA4.Location = new System.Drawing.Point(9, 20);
-            this.cbA4.Name = "cbA4";
-            this.cbA4.Size = new System.Drawing.Size(37, 15);
-            this.cbA4.Style = MetroFramework.MetroColorStyle.Blue;
-            this.cbA4.StyleManager = null;
-            this.cbA4.TabIndex = 6;
-            this.cbA4.Text = "A4";
-            this.cbA4.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.cbA4.UseStyleColors = false;
-            this.cbA4.UseVisualStyleBackColor = true;
-            this.cbA4.CheckedChanged += new System.EventHandler(this.cbA4_CheckedChanged);
-            // 
-            // btnA4Fill
-            // 
-            this.btnA4Fill.Enabled = false;
-            this.btnA4Fill.FontSize = MetroFramework.MetroLabelSize.Small;
-            this.btnA4Fill.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.btnA4Fill.Highlight = false;
-            this.btnA4Fill.Location = new System.Drawing.Point(87, 43);
-            this.btnA4Fill.Name = "btnA4Fill";
-            this.btnA4Fill.Size = new System.Drawing.Size(57, 23);
-            this.btnA4Fill.Style = MetroFramework.MetroColorStyle.Blue;
-            this.btnA4Fill.StyleManager = null;
-            this.btnA4Fill.TabIndex = 5;
-            this.btnA4Fill.Text = "填充";
-            this.btnA4Fill.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.btnA4Fill.Click += new System.EventHandler(this.btnA4ImageStyleMode_Click);
-            // 
-            // btnA4Zoom
-            // 
-            this.btnA4Zoom.Enabled = false;
-            this.btnA4Zoom.FontSize = MetroFramework.MetroLabelSize.Small;
-            this.btnA4Zoom.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.btnA4Zoom.Highlight = false;
-            this.btnA4Zoom.Location = new System.Drawing.Point(87, 74);
-            this.btnA4Zoom.Name = "btnA4Zoom";
-            this.btnA4Zoom.Size = new System.Drawing.Size(57, 23);
-            this.btnA4Zoom.Style = MetroFramework.MetroColorStyle.Blue;
-            this.btnA4Zoom.StyleManager = null;
-            this.btnA4Zoom.TabIndex = 5;
-            this.btnA4Zoom.Text = "缩放";
-            this.btnA4Zoom.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.btnA4Zoom.Click += new System.EventHandler(this.btnA4ImageStyleMode_Click);
-            // 
-            // tbRotate
-            // 
-            this.tbRotate.BackColor = System.Drawing.Color.Goldenrod;
-            this.tbRotate.CustomBackground = true;
-            this.tbRotate.LargeChange = ((uint)(5u));
-            this.tbRotate.Location = new System.Drawing.Point(149, 3);
-            this.tbRotate.Maximum = 360;
-            this.tbRotate.Minimum = 0;
-            this.tbRotate.MouseWheelBarPartitions = 10;
-            this.tbRotate.Name = "tbRotate";
-            this.tbRotate.Size = new System.Drawing.Size(195, 23);
-            this.tbRotate.SmallChange = ((uint)(1u));
-            this.tbRotate.Style = MetroFramework.MetroColorStyle.Blue;
-            this.tbRotate.StyleManager = null;
-            this.tbRotate.TabIndex = 5;
-            this.tbRotate.Text = "metroTrackBar1";
-            this.tbRotate.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.tbRotate.Value = 0;
-            this.tbRotate.ValueChanged += new System.EventHandler(this.tbRotate_ValueChanged);
-            this.tbRotate.Scroll += new System.Windows.Forms.ScrollEventHandler(this.tbRotate_Scroll);
+            this.btnImgSave.FontSize = MetroFramework.MetroLabelSize.Small;
+            this.btnImgSave.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.btnImgSave.Highlight = false;
+            this.btnImgSave.Location = new System.Drawing.Point(930, 327);
+            this.btnImgSave.Name = "btnImgSave";
+            this.btnImgSave.Size = new System.Drawing.Size(135, 23);
+            this.btnImgSave.Style = MetroFramework.MetroColorStyle.Blue;
+            this.btnImgSave.StyleManager = null;
+            this.btnImgSave.TabIndex = 5;
+            this.btnImgSave.Text = "保存截图";
+            this.btnImgSave.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.btnImgSave.Click += new System.EventHandler(this.btnImgSave_Click);
             // 
             // FrmTool
             // 
@@ -583,7 +600,6 @@ namespace ImageTools_GDI
             this.Location = new System.Drawing.Point(0, 0);
             this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "FrmTool";
-            this.Load += new System.EventHandler(this.FrmTool_Load);
             this.SizeChanged += new System.EventHandler(this.FrmScrn_SizeChanged);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -633,5 +649,6 @@ namespace ImageTools_GDI
         private MetroFramework.Controls.MetroButton btnA4Zoom;
         private MetroFramework.Controls.MetroButton btnA4Fill;
         private MetroFramework.Controls.MetroTrackBar tbRotate;
+        private MetroFramework.Controls.MetroButton btnImgSave;
     }
 }

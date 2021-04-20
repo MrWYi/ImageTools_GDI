@@ -112,6 +112,28 @@ namespace ImageTools_GDI
 
         #endregion
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            KeyEventArgs e = new KeyEventArgs(keyData);
+            Console.WriteLine(e);
+            if (keyData == (Keys.R))
+            {
+                tbRotate.Value = 0;
+            }
+            if (keyData == (Keys.Right))
+            {
+                if (tbRotate.Value >= 360) return true;
+                tbRotate.Value++;
+            }
+
+            if (keyData == (Keys.Left))
+            {
+                if (tbRotate.Value <= 0) return true;
+                tbRotate.Value--;
+            }
+            return true;
+        }
+
         public FrmTool()
         {
             InitializeComponent();
@@ -133,6 +155,41 @@ namespace ImageTools_GDI
             picImage.Controls.Add(panel1);
         }
 
+
+        private void FrmScrn_KeyDown(object sender, KeyEventArgs e)
+        {
+            //单键
+            switch (e.KeyCode)
+            {
+                case Keys.Left:
+                    if (tbRotate.Value <= 0) return;
+                    tbRotate.Value++;
+                    break;
+
+                case Keys.Right:
+                    if (tbRotate.Value >= 360) return;
+                    tbRotate.Value++;
+                    break;
+            }
+        }
+
+        private void Panel1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            //单键
+            switch (e.KeyCode)
+            {
+                case Keys.Left:
+                    if (tbRotate.Value <= 0) return;
+                    tbRotate.Value++;
+                    break;
+
+                case Keys.Right:
+                    if (tbRotate.Value >= 360) return;
+                    tbRotate.Value++;
+                    break;
+            }
+        }
+
         #region 事件
         /// <summary>
         /// 截图按钮
@@ -145,7 +202,7 @@ namespace ImageTools_GDI
             {
                 if (Clipboard.ContainsImage())
                 {
-                    panelImage.BackgroundImage = Clipboard.GetImage();
+                    //panelImage.BackgroundImage = Clipboard.GetImage();
                 }
             }
         }
@@ -509,18 +566,14 @@ namespace ImageTools_GDI
             rect.Width = width;
             rect.Height = height;
             e.Graphics.Clear(Color.White);
-            RoatetImage(orig_image, e.Graphics, rect, tbRotate.Value);
+            RoatetImage(src_image, e.Graphics, rect, tbRotate.Value);
 
             if (cbA4.Checked)
             {
                 pen = new Pen(Color.Red, 2.0f);
                 var rect = GetA4Rectangle();
                 e.Graphics.DrawRectangle(pen, rect);
-                e.Graphics.DrawString($"width:{rect.Width}", new Font("微软雅黑", 7), new SolidBrush(Color.Red), new Point(panel1.Width - 80, 0));
-                e.Graphics.DrawString($"height:{rect.Height}", new Font("微软雅黑", 7), new SolidBrush(Color.Red), new Point(panel1.Width - 80, 10));
             }
-            e.Graphics.DrawString($"width:{rect.Width}", new Font("微软雅黑", 7), new SolidBrush(Color.Black), new Point(0, 0));
-            e.Graphics.DrawString($"height:{rect.Height}", new Font("微软雅黑", 7), new SolidBrush(Color.Black), new Point(0, 15));
         }
 
         /// <summary>
@@ -583,15 +636,28 @@ namespace ImageTools_GDI
         private void btnCut_Click(object sender, EventArgs e)
         {
             Point r = new Point();
-            var a4 = GetA4Rectangle();
-            Bitmap image = new Bitmap(a4.Width - 2, a4.Height - 2);
-            Graphics imgGh = Graphics.FromImage(image);
-            r.X = a4.X + 1;
-            r.Y = a4.Y + 1;
-            r = panel1.PointToScreen(r);
-            imgGh.CopyFromScreen(r, new Point(0, 0), new Size(a4.Width - 2, a4.Height - 2));
+            if (cbA4.Checked)
+            {
+                var a4 = GetA4Rectangle();
+                Bitmap image = new Bitmap(a4.Width - 2, a4.Height - 2);
+                Graphics imgGh = Graphics.FromImage(image);
+                r.X = a4.X + 1;
+                r.Y = a4.Y + 1;
+                r = panel1.PointToScreen(r);
+                imgGh.CopyFromScreen(r, new Point(0, 0), new Size(a4.Width - 2, a4.Height - 2));
 
-            picScrn.Image = image;
+                picScrn.Image = image;
+                //Clipboard.SetImage(image);
+            }
+            else
+            {
+                Bitmap image = new Bitmap(panel1.Width - 4, panel1.Height - 4);
+                Graphics imgGh = Graphics.FromImage(image);
+                r = panel1.PointToScreen(r);
+                imgGh.CopyFromScreen(r, new Point(0, 0), new Size(panel1.Width - 4, panel1.Height - 4));
+                picScrn.Image = image;
+            }
+            this.DialogResult = DialogResult.OK;
         }
 
         /// <summary>
@@ -853,12 +919,7 @@ namespace ImageTools_GDI
             }
         }
 
-        private void FrmTool_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbRotate_Scroll(object sender, ScrollEventArgs e)
+        private void btntest_Paint(object sender, PaintEventArgs e)
         {
 
         }
