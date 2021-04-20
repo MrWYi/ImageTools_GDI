@@ -60,6 +60,7 @@ namespace ImageTools_GDI
             this.btnVerFlip = new System.Windows.Forms.Button();
             this.btnRightRotate90 = new System.Windows.Forms.Button();
             this.btnLeftRotate90 = new System.Windows.Forms.Button();
+            this.btnImgSave = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -96,8 +97,8 @@ namespace ImageTools_GDI
             // 
             // panelImage
             // 
-            this.panelImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.panelImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panelImage.Location = new System.Drawing.Point(9, 53);
@@ -131,6 +132,7 @@ namespace ImageTools_GDI
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnImgSave);
             this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Controls.Add(this.picScrn);
             this.tabPage2.Controls.Add(this.picImage);
@@ -257,8 +259,8 @@ namespace ImageTools_GDI
             // 
             // picImage
             // 
-            this.picImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.picImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.picImage.BackColor = System.Drawing.Color.LightGray;
             this.picImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -292,7 +294,7 @@ namespace ImageTools_GDI
             // 
             // btntest
             // 
-            this.btntest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.btntest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btntest.BackColor = System.Drawing.Color.Goldenrod;
             this.btntest.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -497,14 +499,24 @@ namespace ImageTools_GDI
             this.btnLeftRotate90.UseVisualStyleBackColor = true;
             this.btnLeftRotate90.Click += new System.EventHandler(this.btnLeftRotate90_Click);
             // 
-            // FrmScrn
+            // btnImgSave
+            // 
+            this.btnImgSave.Location = new System.Drawing.Point(833, 341);
+            this.btnImgSave.Name = "btnImgSave";
+            this.btnImgSave.Size = new System.Drawing.Size(135, 23);
+            this.btnImgSave.TabIndex = 5;
+            this.btnImgSave.Text = "保存截图";
+            this.btnImgSave.UseVisualStyleBackColor = true;
+            this.btnImgSave.Click += new System.EventHandler(this.btnImgSave_Click);
+            // 
+            // FrmTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(990, 585);
             this.Controls.Add(this.tabControl1);
             this.MinimumSize = new System.Drawing.Size(816, 489);
-            this.Name = "FrmScrn";
+            this.Name = "FrmTool";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmScrn";
             this.SizeChanged += new System.EventHandler(this.FrmScrn_SizeChanged);
@@ -557,5 +569,6 @@ namespace ImageTools_GDI
         private System.Windows.Forms.Button btnA4LocationTop;
         private System.Windows.Forms.CheckBox cbA4SizeFollow;
         private System.Windows.Forms.Button btnA4Zoom;
+        private System.Windows.Forms.Button btnImgSave;
     }
 }

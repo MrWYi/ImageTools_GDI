@@ -841,6 +841,19 @@ namespace ImageTools_GDI
             }
         }
 
+        private void btnImgSave_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog fsd = new SaveFileDialog();
+            fsd.FileName = "图片_" + DateTime.Now.ToString("yyyy-MM-HH hh-mm-ss");
+            fsd.DefaultExt = ".jpg";
+            fsd.Filter = "*.jpg|jpg";
+            if (fsd.ShowDialog() == DialogResult.OK)
+            {
+                string name = fsd.FileName;
+                picScrn.Image.Save(name);
+            }
+        }
+
         /// <summary>
         /// 图片定位
         /// </summary>
