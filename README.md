@@ -19,5 +19,5 @@ ui库 modernui https://github.com/peters/winforms-modernui
 
 鼠标滚轮滑动图片等比缩放
 
-双击进入/推出图片大小自定义调整
+双击进入/退出图片大小自定义调整
 
