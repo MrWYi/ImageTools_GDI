@@ -16,6 +16,8 @@ ui库 modernui https://github.com/peters/winforms-modernui
 ![Image text](https://github.com/MrWYi/ImageTools_GDI/blob/main/readme/%E6%97%8B%E8%BD%AC.png)
 
 裁剪图片
+
 鼠标滚轮滑动图片等比缩放
+
 双击进入/推出图片大小自定义调整
 
