@@ -98,6 +98,13 @@ namespace ImageTools_GDI
         Rectangle rect;
         #endregion
 
+        #region 改变图片大小
+        Rectangle[] rectArray = new Rectangle[8];
+        bool isSizeMove = false;
+        bool isEdit = true;
+        Brush sizeRectColor = new SolidBrush(Color.FromArgb(0, 122, 204));
+        #endregion
+
         /// <summary>
         /// 图片位置 默认1
         /// 0:top 1:center 2:bottom
@@ -115,23 +122,47 @@ namespace ImageTools_GDI
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             KeyEventArgs e = new KeyEventArgs(keyData);
-            Console.WriteLine(e);
             if (keyData == (Keys.R))
             {
                 tbRotate.Value = 0;
             }
             if (keyData == (Keys.Right))
             {
-                if (tbRotate.Value >= 360) return true;
-                tbRotate.Value++;
+                if (isEdit)
+                {
+                    rect.X++;
+                    picImage.Invalidate();
+                }
+                else
+                {
+                    if (tbRotate.Value >= 360) return true;
+                    tbRotate.Value++;
+                }
             }
-
             if (keyData == (Keys.Left))
             {
-                if (tbRotate.Value <= 0) return true;
-                tbRotate.Value--;
+                if (isEdit)
+                {
+                    rect.X--;
+                    picImage.Invalidate();
+                }
+                else
+                {
+                    if (tbRotate.Value <= 0) return true;
+                    tbRotate.Value--;
+                }
             }
-            return true;
+            if (keyData==Keys.Up && isEdit)
+            {
+                rect.Y--;
+                picImage.Invalidate();
+            }
+            if (keyData==Keys.Down && isEdit)
+            {
+                rect.Y++;
+                picImage.Invalidate();
+            }
+            return base.ProcessCmdKey(ref msg,keyData);
         }
 
         public FrmTool()
@@ -147,6 +178,7 @@ namespace ImageTools_GDI
             panel1.MouseMove += this.FrmScrn_MouseMove;
             panel1.MouseUp += this.FrmScrn_MouseUp;
             panel1.MouseWheel += this.Panel1_MouseWheel;
+            panel1.MouseDoubleClick += Panel1_MouseDoubleClick; ;
             panel1.DragDrop += Panel1_DragDrop;
             panel1.DragEnter += Panel1_DragEnter;
             panel1.Dock = DockStyle.Fill;
@@ -155,39 +187,25 @@ namespace ImageTools_GDI
             picImage.Controls.Add(panel1);
         }
 
-
-        private void FrmScrn_KeyDown(object sender, KeyEventArgs e)
+        private void Panel1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            //单键
-            switch (e.KeyCode)
+            if (rect.Contains(e.Location))
             {
-                case Keys.Left:
-                    if (tbRotate.Value <= 0) return;
-                    tbRotate.Value++;
-                    break;
-
-                case Keys.Right:
-                    if (tbRotate.Value >= 360) return;
-                    tbRotate.Value++;
-                    break;
+                isEdit = true;
+                btnSub.Enabled = false;
+                tbRotate.Enabled = false;
+                btnAdd.Enabled = false;
+                txtRotate.Enabled = false;
             }
-        }
-
-        private void Panel1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            //单键
-            switch (e.KeyCode)
+            else
             {
-                case Keys.Left:
-                    if (tbRotate.Value <= 0) return;
-                    tbRotate.Value++;
-                    break;
-
-                case Keys.Right:
-                    if (tbRotate.Value >= 360) return;
-                    tbRotate.Value++;
-                    break;
+                isEdit = false;
+                btnSub.Enabled = true;
+                tbRotate.Enabled = true;
+                btnAdd.Enabled = true;
+                txtRotate.Enabled = true;
             }
+            picImage.Invalidate();
         }
 
         #region 事件
@@ -350,6 +368,28 @@ namespace ImageTools_GDI
                     else
                         Cursor.Current = Cursors.Default;
                 }
+                else if (isSizeMove)
+                {
+                    width = e.X - rect.Location.X;
+                    height = e.Y - rect.Location.Y;
+                    if (width <= 50 || height <= 50)
+                    {
+                        return;
+                    }
+                    picImage.Invalidate();
+                }
+            }
+            else
+            {
+                if (rectArray[0].Contains(e.Location))
+                {
+                    sizeRectColor = new SolidBrush(Color.Red);
+                }
+                else
+                {
+                    sizeRectColor = new SolidBrush(Color.FromArgb(0, 122, 204));
+                }
+                picImage.Invalidate();
             }
         }
 
@@ -359,6 +399,13 @@ namespace ImageTools_GDI
             m_now_point = new Point(e.X, e.Y);
             if (e.Button == MouseButtons.Left)//画图，取消，拖动,旋转
             {
+                if (rectArray[0].Contains(m_now_point))
+                {
+                    m_down = true;
+                    isSizeMove = true;
+                    picImage.Invalidate();
+                    return;
+                }
                 if (draw_rect != null && draw_rect.Contains(m_now_point))
                 {
                     //鼠标在矩形范围内拖动
@@ -517,8 +564,8 @@ namespace ImageTools_GDI
         private void tbRotate_ValueChanged(object sender, EventArgs e)
         {
             if (this.src_image == null) return;
-            var angle = tbRotate.Value;
-            label2.Text = $"{angle}°";
+            float angle = tbRotate.Value * 0.1F;
+            txtRotate.Text = angle.ToString();
             picImage.Invalidate();
         }
 
@@ -566,13 +613,46 @@ namespace ImageTools_GDI
             rect.Width = width;
             rect.Height = height;
             e.Graphics.Clear(Color.White);
-            RoatetImage(src_image, e.Graphics, rect, tbRotate.Value);
+            float rotate = tbRotate.Value * 0.1F;
+            RoatetImage(src_image, e.Graphics, rect, rotate);
 
             if (cbA4.Checked)
             {
                 pen = new Pen(Color.Red, 2.0f);
                 var rect = GetA4Rectangle();
                 e.Graphics.DrawRectangle(pen, rect);
+            }
+            if (cbDash.Checked)
+            {
+                pen = new Pen(DashColor.BackColor, 0.5f);
+                pen.DashStyle = DashStyle.Custom;
+                pen.DashPattern = new float[] { 2, 4 };
+
+
+                int hline2Y = panel1.Height / 2;
+                e.Graphics.DrawLine(pen, 0, hline2Y, panel1.Width, hline2Y);
+
+                int hline1Y = hline2Y / 2;
+                e.Graphics.DrawLine(pen, 0, hline1Y, panel1.Width, hline1Y);
+
+                int hline3Y = hline2Y + hline1Y;
+                e.Graphics.DrawLine(pen, 0, hline3Y, panel1.Width, hline3Y);
+
+                int vline2X = panel1.Width / 2;
+                e.Graphics.DrawLine(pen, vline2X, 0, vline2X, panel1.Height);
+
+                int vline1X = vline2X / 2;
+                e.Graphics.DrawLine(pen, vline1X, 0, vline1X, panel1.Height);
+
+                int vline3X = vline2X + vline1X;
+                e.Graphics.DrawLine(pen, vline3X, 0, vline3X, panel1.Height);
+            }
+            if (isEdit)
+            {
+                pen = new Pen(Color.FromArgb(0, 122, 204), 1.0f);
+                e.Graphics.DrawRectangle(pen, rect);
+                rectArray[0] = new Rectangle(rect.X + rect.Width - 4, rect.Y + rect.Height - 4, 7, 7);
+                e.Graphics.FillRectangle(sizeRectColor, rectArray[0]);
             }
         }
 
@@ -804,7 +884,7 @@ namespace ImageTools_GDI
         /// <param name="b">位图流</param>
         /// <param name="angle">旋转角度[0,360](前台给的)</param>
         /// <returns></returns>
-        public void RoatetImage(Image image, Graphics g, Rectangle r, int angle)
+        public void RoatetImage(Image image, Graphics g, Rectangle r, float angle)
         {
             using (Matrix m = new Matrix())
             {
@@ -922,6 +1002,84 @@ namespace ImageTools_GDI
         private void btntest_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void A4Color_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDia = new ColorDialog();
+
+            if (colorDia.ShowDialog() == DialogResult.OK)
+            {
+                //获取所选择的颜色
+                Color colorChoosed = colorDia.Color;
+                //改变panel的背景色
+                A4Color.BackColor = colorChoosed;
+            }
+            picImage.Invalidate();
+        }
+
+        private void DashColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDia = new ColorDialog();
+
+            if (colorDia.ShowDialog() == DialogResult.OK)
+            {
+                //获取所选择的颜色
+                Color colorChoosed = colorDia.Color;
+                //改变panel的背景色
+                DashColor.BackColor = colorChoosed;
+            }
+            picImage.Invalidate();
+        }
+
+        private void txtRotate_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                decimal result;
+                if (decimal.TryParse(txtRotate.Text, out result))
+                {
+                    double rotate = (double)decimal.Parse(txtRotate.Text);
+                    double temp = rotate * 10.0;
+                    if (temp > 3600 || temp < 0)
+                    {
+                        tbRotate.Value = 3600;
+                    }
+                    else
+                    {
+                        tbRotate.Value = (int)temp;
+                    }
+                }
+                return;
+            }
+            if (Char.IsDigit(e.KeyChar) || (int)e.KeyChar == 46 || (int)e.KeyChar == 8)
+            {
+                return;
+            }
+            e.Handled = true;
+        }
+
+        private void cbDash_CheckedChanged(object sender, EventArgs e)
+        {
+            picImage.Invalidate();
+        }
+
+        private void FrmTool_Load(object sender, EventArgs e)
+        {
+            if (isEdit)
+            {
+                btnSub.Enabled = false;
+                tbRotate.Enabled = false;
+                btnAdd.Enabled = false;
+                txtRotate.Enabled = false;
+            }
+            else
+            {
+                btnSub.Enabled = true;
+                tbRotate.Enabled = true;
+                btnAdd.Enabled = true;
+                txtRotate.Enabled = true;
+            }
         }
 
         /// <summary>

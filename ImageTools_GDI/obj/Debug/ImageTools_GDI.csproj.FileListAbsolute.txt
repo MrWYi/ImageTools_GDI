@@ -1,0 +1,13 @@
+D:\ImageTools_GDI\ImageTools_GDI\obj\Debug\ImageTools_GDI.control.CutPicPanelTools.resources
+D:\ImageTools_GDI\ImageTools_GDI\obj\Debug\ImageTools_GDI.FrmTool.resources
+D:\ImageTools_GDI\ImageTools_GDI\obj\Debug\ImageTools_GDI.Properties.Resources.resources
+D:\ImageTools_GDI\ImageTools_GDI\obj\Debug\ImageTools_GDI.csproj.GenerateResource.cache
+D:\ImageTools_GDI\ImageTools_GDI\obj\Debug\ImageTools_GDI.csproj.CoreCompileInputs.cache
+D:\ImageTools_GDI\ImageTools_GDI\bin\Debug\PrScrn.dll
+D:\ImageTools_GDI\ImageTools_GDI\bin\Debug\ImageTools_GDI.exe.config
+D:\ImageTools_GDI\ImageTools_GDI\bin\Debug\ImageTools_GDI.exe
+D:\ImageTools_GDI\ImageTools_GDI\bin\Debug\ImageTools_GDI.pdb
+D:\ImageTools_GDI\ImageTools_GDI\bin\Debug\MetroFramework.dll
+D:\ImageTools_GDI\ImageTools_GDI\obj\Debug\ImageTools_GDI.csproj.CopyComplete
+D:\ImageTools_GDI\ImageTools_GDI\obj\Debug\ImageTools_GDI.exe
+D:\ImageTools_GDI\ImageTools_GDI\obj\Debug\ImageTools_GDI.pdb

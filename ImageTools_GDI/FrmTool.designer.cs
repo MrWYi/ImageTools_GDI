@@ -34,6 +34,7 @@ namespace ImageTools_GDI
             this.label1 = new System.Windows.Forms.Label();
             this.panelImage = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.A4Color = new System.Windows.Forms.Panel();
             this.cbA4 = new MetroFramework.Controls.MetroCheckBox();
             this.cbA4SizeFollow = new MetroFramework.Controls.MetroCheckBox();
             this.btnA4LocationBottom = new MetroFramework.Controls.MetroButton();
@@ -46,10 +47,10 @@ namespace ImageTools_GDI
             this.panelScrnBar = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.btntest = new System.Windows.Forms.Panel();
+            this.txtRotate = new MetroFramework.Controls.MetroTextBox();
             this.tbRotate = new MetroFramework.Controls.MetroTrackBar();
             this.btnSub = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.btnOpenImage = new System.Windows.Forms.Button();
             this.btnCut = new System.Windows.Forms.Button();
             this.btnCutPic = new System.Windows.Forms.Button();
@@ -60,7 +61,11 @@ namespace ImageTools_GDI
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.metroTabPage1 = new MetroFramework.Controls.MetroTabPage();
             this.metroTabPage2 = new MetroFramework.Controls.MetroTabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbDash = new MetroFramework.Controls.MetroCheckBox();
+            this.DashColor = new System.Windows.Forms.Panel();
             this.btnImgSave = new MetroFramework.Controls.MetroButton();
+            this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picScrn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
@@ -69,6 +74,7 @@ namespace ImageTools_GDI
             this.metroTabControl1.SuspendLayout();
             this.metroTabPage1.SuspendLayout();
             this.metroTabPage2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnScrn
@@ -112,6 +118,7 @@ namespace ImageTools_GDI
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.White;
+            this.groupBox1.Controls.Add(this.A4Color);
             this.groupBox1.Controls.Add(this.cbA4);
             this.groupBox1.Controls.Add(this.cbA4SizeFollow);
             this.groupBox1.Controls.Add(this.btnA4LocationBottom);
@@ -125,6 +132,15 @@ namespace ImageTools_GDI
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "A4";
+            // 
+            // A4Color
+            // 
+            this.A4Color.BackColor = System.Drawing.Color.Red;
+            this.A4Color.Location = new System.Drawing.Point(88, 106);
+            this.A4Color.Name = "A4Color";
+            this.A4Color.Size = new System.Drawing.Size(22, 21);
+            this.A4Color.TabIndex = 7;
+            this.A4Color.Click += new System.EventHandler(this.A4Color_Click);
             // 
             // cbA4
             // 
@@ -296,10 +312,10 @@ namespace ImageTools_GDI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btntest.BackColor = System.Drawing.Color.Goldenrod;
             this.btntest.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btntest.Controls.Add(this.txtRotate);
             this.btntest.Controls.Add(this.tbRotate);
             this.btntest.Controls.Add(this.btnSub);
             this.btntest.Controls.Add(this.btnAdd);
-            this.btntest.Controls.Add(this.label2);
             this.btntest.Controls.Add(this.btnOpenImage);
             this.btntest.Controls.Add(this.btnCut);
             this.btntest.Controls.Add(this.btnCutPic);
@@ -312,13 +328,30 @@ namespace ImageTools_GDI
             this.btntest.Size = new System.Drawing.Size(913, 30);
             this.btntest.TabIndex = 0;
             // 
+            // txtRotate
+            // 
+            this.txtRotate.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            this.txtRotate.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            this.txtRotate.Location = new System.Drawing.Point(374, 3);
+            this.txtRotate.Multiline = false;
+            this.txtRotate.Name = "txtRotate";
+            this.txtRotate.SelectedText = "";
+            this.txtRotate.Size = new System.Drawing.Size(37, 23);
+            this.txtRotate.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtRotate.StyleManager = null;
+            this.txtRotate.TabIndex = 8;
+            this.txtRotate.Text = "0";
+            this.txtRotate.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtRotate.UseStyleColors = false;
+            this.txtRotate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRotate_KeyPress);
+            // 
             // tbRotate
             // 
             this.tbRotate.BackColor = System.Drawing.Color.Goldenrod;
             this.tbRotate.CustomBackground = true;
             this.tbRotate.LargeChange = ((uint)(5u));
             this.tbRotate.Location = new System.Drawing.Point(149, 3);
-            this.tbRotate.Maximum = 360;
+            this.tbRotate.Maximum = 3600;
             this.tbRotate.Minimum = 0;
             this.tbRotate.MouseWheelBarPartitions = 10;
             this.tbRotate.Name = "tbRotate";
@@ -364,21 +397,12 @@ namespace ImageTools_GDI
             this.btnAdd.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Goldenrod;
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnAdd.Location = new System.Drawing.Point(367, 5);
+            this.btnAdd.Location = new System.Drawing.Point(349, 5);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(20, 20);
             this.btnAdd.TabIndex = 0;
             this.btnAdd.UseVisualStyleBackColor = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(348, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(23, 12);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "0°";
             // 
             // btnOpenImage
             // 
@@ -552,6 +576,7 @@ namespace ImageTools_GDI
             // 
             // metroTabPage2
             // 
+            this.metroTabPage2.Controls.Add(this.groupBox2);
             this.metroTabPage2.Controls.Add(this.btnImgSave);
             this.metroTabPage2.Controls.Add(this.groupBox1);
             this.metroTabPage2.Controls.Add(this.picScrn);
@@ -576,12 +601,53 @@ namespace ImageTools_GDI
             this.metroTabPage2.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage2.VerticalScrollbarSize = 10;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.BackColor = System.Drawing.Color.White;
+            this.groupBox2.Controls.Add(this.cbDash);
+            this.groupBox2.Controls.Add(this.DashColor);
+            this.groupBox2.Location = new System.Drawing.Point(922, 316);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(150, 41);
+            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "操作";
+            // 
+            // cbDash
+            // 
+            this.cbDash.AutoSize = true;
+            this.cbDash.CustomBackground = false;
+            this.cbDash.FontSize = MetroFramework.MetroLinkSize.Small;
+            this.cbDash.FontWeight = MetroFramework.MetroLinkWeight.Regular;
+            this.cbDash.Location = new System.Drawing.Point(8, 18);
+            this.cbDash.Name = "cbDash";
+            this.cbDash.Size = new System.Drawing.Size(62, 15);
+            this.cbDash.Style = MetroFramework.MetroColorStyle.Blue;
+            this.cbDash.StyleManager = null;
+            this.cbDash.TabIndex = 7;
+            this.cbDash.Text = "等分线";
+            this.cbDash.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.cbDash.UseStyleColors = false;
+            this.cbDash.UseVisualStyleBackColor = true;
+            this.cbDash.CheckedChanged += new System.EventHandler(this.cbDash_CheckedChanged);
+            // 
+            // DashColor
+            // 
+            this.DashColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(130)))), ((int)(((byte)(135)))));
+            this.DashColor.Location = new System.Drawing.Point(87, 14);
+            this.DashColor.Name = "DashColor";
+            this.DashColor.Size = new System.Drawing.Size(22, 21);
+            this.DashColor.TabIndex = 5;
+            this.DashColor.Click += new System.EventHandler(this.DashColor_Click);
+            // 
             // btnImgSave
             // 
+            this.btnImgSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnImgSave.FontSize = MetroFramework.MetroLabelSize.Small;
             this.btnImgSave.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.btnImgSave.Highlight = false;
-            this.btnImgSave.Location = new System.Drawing.Point(930, 327);
+            this.btnImgSave.Location = new System.Drawing.Point(930, 369);
             this.btnImgSave.Name = "btnImgSave";
             this.btnImgSave.Size = new System.Drawing.Size(135, 23);
             this.btnImgSave.Style = MetroFramework.MetroColorStyle.Blue;
@@ -597,9 +663,13 @@ namespace ImageTools_GDI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1122, 660);
             this.Controls.Add(this.metroTabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.Location = new System.Drawing.Point(0, 0);
             this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "FrmTool";
+            this.Text = "小工具";
+            this.Load += new System.EventHandler(this.FrmTool_Load);
             this.SizeChanged += new System.EventHandler(this.FrmScrn_SizeChanged);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -608,11 +678,12 @@ namespace ImageTools_GDI
             this.panelScrnBar.ResumeLayout(false);
             this.panelScrnBar.PerformLayout();
             this.btntest.ResumeLayout(false);
-            this.btntest.PerformLayout();
             this.metroTabControl1.ResumeLayout(false);
             this.metroTabPage1.ResumeLayout(false);
             this.metroTabPage1.PerformLayout();
             this.metroTabPage2.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -632,7 +703,6 @@ namespace ImageTools_GDI
         private System.Windows.Forms.Button btnHorFlip;
         private System.Windows.Forms.Button btnVerFlip;
         private System.Windows.Forms.Button btnCutPic;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnCut;
         private System.Windows.Forms.Button btnSub;
@@ -650,5 +720,11 @@ namespace ImageTools_GDI
         private MetroFramework.Controls.MetroButton btnA4Fill;
         private MetroFramework.Controls.MetroTrackBar tbRotate;
         private MetroFramework.Controls.MetroButton btnImgSave;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private MetroFramework.Controls.MetroCheckBox cbDash;
+        private System.Windows.Forms.Panel DashColor;
+        private System.Windows.Forms.Panel A4Color;
+        private MetroFramework.Controls.MetroTextBox txtRotate;
+        private System.Windows.Forms.ColorDialog colorDialog;
     }
 }

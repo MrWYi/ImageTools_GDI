@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>20210409042106283_easyicon_net_128.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MetroFramework, Version=2.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ModernUI.2.0.5\lib\net20\MetroFramework.dll</HintPath>
@@ -130,6 +133,7 @@
     <None Include="Resources\叉号.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="20210409042106283_easyicon_net_128.ico" />
     <Content Include="PrScrn.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
