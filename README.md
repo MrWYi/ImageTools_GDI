@@ -4,7 +4,7 @@ ui库 modernui https://github.com/peters/winforms-modernui
 
 在原有的ui基础上优化了几点(packages/ModernUI.2.0.5)
 
-如果项目编译时出错需要先安装原作者的ui库,再删除报错的属性可编译成功.
+如果项目编译时出错需要先安装原作者的ui库,再删除报错的属性可编译成功.或者直接引用编译好的dll
 
 操作界面
 
