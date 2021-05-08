@@ -101,7 +101,7 @@ namespace ImageTools_GDI
         #region 改变图片大小
         Rectangle[] rectArray = new Rectangle[8];
         bool isSizeMove = false;
-        bool isEdit = true;
+        bool isEdit = false;
         Brush sizeRectColor = new SolidBrush(Color.FromArgb(0, 122, 204));
         #endregion
 
@@ -117,6 +117,7 @@ namespace ImageTools_GDI
         /// </summary>
         int img_style_model = 1;
 
+        bool a4Hide, editHide, dashHide;
         #endregion
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -192,18 +193,10 @@ namespace ImageTools_GDI
             if (rect.Contains(e.Location))
             {
                 isEdit = true;
-                btnSub.Enabled = false;
-                tbRotate.Enabled = false;
-                btnAdd.Enabled = false;
-                txtRotate.Enabled = false;
             }
             else
             {
                 isEdit = false;
-                btnSub.Enabled = true;
-                tbRotate.Enabled = true;
-                btnAdd.Enabled = true;
-                txtRotate.Enabled = true;
             }
             picImage.Invalidate();
         }
@@ -531,7 +524,7 @@ namespace ImageTools_GDI
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (tbRotate.Value >= 360) return;
+            if (tbRotate.Value >= 1800) return;
             tbRotate.Value++;
         }
 
@@ -542,7 +535,7 @@ namespace ImageTools_GDI
         /// <param name="e"></param>
         private void btnSub_Click(object sender, EventArgs e)
         {
-            if (tbRotate.Value <= 0) return;
+            if (tbRotate.Value <= -1800) return;
             tbRotate.Value--;
         }
 
@@ -650,10 +643,17 @@ namespace ImageTools_GDI
             if (isEdit)
             {
                 pen = new Pen(Color.FromArgb(0, 122, 204), 1.0f);
-                e.Graphics.DrawRectangle(pen, rect);
-                rectArray[0] = new Rectangle(rect.X + rect.Width - 4, rect.Y + rect.Height - 4, 7, 7);
+                //获取最大外边框
+                Rectangle maxRect = GetRotateRectangle(rect.Width, rect.Height, rotate);
+                int rectX = rect.X + (rect.Width / 2) - (maxRect.Width / 2);
+                int rectY = rect.Y + (rect.Height / 2) - (maxRect.Height / 2);
+                maxRect.Location = new Point(rectX, rectY);
+                e.Graphics.DrawRectangle(pen, maxRect);
+
+                rectArray[0] = new Rectangle(maxRect.X + maxRect.Width - 4, maxRect.Y + maxRect.Height - 4, 7, 7);
                 e.Graphics.FillRectangle(sizeRectColor, rectArray[0]);
             }
+            lblImageSizeInfo.Text = $"{rect}";
         }
 
         /// <summary>
@@ -944,13 +944,7 @@ namespace ImageTools_GDI
             }
         }
 
-        /// <summary>
-        /// 获取最小外界矩形
-        /// </summary>
-        /// <param name="width">原矩形的宽</param>
-        /// <param name="height">原矩形高</param>
-        /// <param name="angle">顺时针旋转角度</param>
-        /// <returns></returns>
+
         public Rectangle GetRotateRectangle(int width, int height, float angle)
         {
             double radian = angle * Math.PI / 180;
@@ -1041,9 +1035,9 @@ namespace ImageTools_GDI
                 {
                     double rotate = (double)decimal.Parse(txtRotate.Text);
                     double temp = rotate * 10.0;
-                    if (temp > 3600 || temp < 0)
+                    if (temp > 1800 || temp < -1800)
                     {
-                        tbRotate.Value = 3600;
+                        tbRotate.Value = 0;
                     }
                     else
                     {
@@ -1052,7 +1046,7 @@ namespace ImageTools_GDI
                 }
                 return;
             }
-            if (Char.IsDigit(e.KeyChar) || (int)e.KeyChar == 46 || (int)e.KeyChar == 8)
+            if (Char.IsDigit(e.KeyChar) || (int)e.KeyChar == 46 || (int)e.KeyChar == 8 || (int)e.KeyChar == 45)
             {
                 return;
             }
@@ -1066,20 +1060,6 @@ namespace ImageTools_GDI
 
         private void FrmTool_Load(object sender, EventArgs e)
         {
-            if (isEdit)
-            {
-                btnSub.Enabled = false;
-                tbRotate.Enabled = false;
-                btnAdd.Enabled = false;
-                txtRotate.Enabled = false;
-            }
-            else
-            {
-                btnSub.Enabled = true;
-                tbRotate.Enabled = true;
-                btnAdd.Enabled = true;
-                txtRotate.Enabled = true;
-            }
         }
 
         /// <summary>

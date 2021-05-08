@@ -11,3 +11,4 @@ D:\ImageTools_GDI\ImageTools_GDI\bin\Debug\MetroFramework.dll
 D:\ImageTools_GDI\ImageTools_GDI\obj\Debug\ImageTools_GDI.csproj.CopyComplete
 D:\ImageTools_GDI\ImageTools_GDI\obj\Debug\ImageTools_GDI.exe
 D:\ImageTools_GDI\ImageTools_GDI\obj\Debug\ImageTools_GDI.pdb
+D:\ImageTools_GDI\ImageTools_GDI\obj\Debug\ImageTools_GDI.csprojAssemblyReference.cache

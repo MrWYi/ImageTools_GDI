@@ -61,11 +61,14 @@ namespace ImageTools_GDI
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.metroTabPage1 = new MetroFramework.Controls.MetroTabPage();
             this.metroTabPage2 = new MetroFramework.Controls.MetroTabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cbDash = new MetroFramework.Controls.MetroCheckBox();
             this.DashColor = new System.Windows.Forms.Panel();
             this.btnImgSave = new MetroFramework.Controls.MetroButton();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
+            this.lblImageSizeInfo = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picScrn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
@@ -336,7 +339,7 @@ namespace ImageTools_GDI
             this.txtRotate.Multiline = false;
             this.txtRotate.Name = "txtRotate";
             this.txtRotate.SelectedText = "";
-            this.txtRotate.Size = new System.Drawing.Size(37, 23);
+            this.txtRotate.Size = new System.Drawing.Size(40, 23);
             this.txtRotate.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtRotate.StyleManager = null;
             this.txtRotate.TabIndex = 8;
@@ -351,8 +354,8 @@ namespace ImageTools_GDI
             this.tbRotate.CustomBackground = true;
             this.tbRotate.LargeChange = ((uint)(5u));
             this.tbRotate.Location = new System.Drawing.Point(149, 3);
-            this.tbRotate.Maximum = 3600;
-            this.tbRotate.Minimum = 0;
+            this.tbRotate.Maximum = 1800;
+            this.tbRotate.Minimum = -1800;
             this.tbRotate.MouseWheelBarPartitions = 10;
             this.tbRotate.Name = "tbRotate";
             this.tbRotate.Size = new System.Drawing.Size(195, 23);
@@ -576,6 +579,9 @@ namespace ImageTools_GDI
             // 
             // metroTabPage2
             // 
+            this.metroTabPage2.Controls.Add(this.label2);
+            this.metroTabPage2.Controls.Add(this.lblImageSizeInfo);
+            this.metroTabPage2.Controls.Add(this.label4);
             this.metroTabPage2.Controls.Add(this.groupBox2);
             this.metroTabPage2.Controls.Add(this.btnImgSave);
             this.metroTabPage2.Controls.Add(this.groupBox1);
@@ -600,6 +606,30 @@ namespace ImageTools_GDI
             this.metroTabPage2.VerticalScrollbarBarColor = true;
             this.metroTabPage2.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage2.VerticalScrollbarSize = 10;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.White;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(188)))), ((int)(((byte)(229)))));
+            this.label2.Location = new System.Drawing.Point(923, 524);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(149, 12);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "双击空白区域退出自由调整";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.White;
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(188)))), ((int)(((byte)(229)))));
+            this.label4.Location = new System.Drawing.Point(923, 506);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(101, 12);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "双击图片自由调整";
             // 
             // groupBox2
             // 
@@ -657,6 +687,16 @@ namespace ImageTools_GDI
             this.btnImgSave.Theme = MetroFramework.MetroThemeStyle.Light;
             this.btnImgSave.Click += new System.EventHandler(this.btnImgSave_Click);
             // 
+            // lblImageSizeInfo
+            // 
+            this.lblImageSizeInfo.AutoSize = true;
+            this.lblImageSizeInfo.BackColor = System.Drawing.Color.White;
+            this.lblImageSizeInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(188)))), ((int)(((byte)(229)))));
+            this.lblImageSizeInfo.Location = new System.Drawing.Point(7, 40);
+            this.lblImageSizeInfo.Name = "lblImageSizeInfo";
+            this.lblImageSizeInfo.Size = new System.Drawing.Size(0, 12);
+            this.lblImageSizeInfo.TabIndex = 8;
+            // 
             // FrmTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -682,6 +722,7 @@ namespace ImageTools_GDI
             this.metroTabPage1.ResumeLayout(false);
             this.metroTabPage1.PerformLayout();
             this.metroTabPage2.ResumeLayout(false);
+            this.metroTabPage2.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -726,5 +767,8 @@ namespace ImageTools_GDI
         private System.Windows.Forms.Panel A4Color;
         private MetroFramework.Controls.MetroTextBox txtRotate;
         private System.Windows.Forms.ColorDialog colorDialog;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblImageSizeInfo;
     }
 }
