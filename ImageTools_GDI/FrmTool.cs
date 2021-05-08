@@ -609,13 +609,13 @@ namespace ImageTools_GDI
             float rotate = tbRotate.Value * 0.1F;
             RoatetImage(src_image, e.Graphics, rect, rotate);
 
-            if (cbA4.Checked)
+            if (cbA4.Checked && !a4Hide)
             {
                 pen = new Pen(Color.Red, 2.0f);
                 var rect = GetA4Rectangle();
                 e.Graphics.DrawRectangle(pen, rect);
             }
-            if (cbDash.Checked)
+            if (cbDash.Checked && !dashHide)
             {
                 pen = new Pen(DashColor.BackColor, 0.5f);
                 pen.DashStyle = DashStyle.Custom;
@@ -640,7 +640,7 @@ namespace ImageTools_GDI
                 int vline3X = vline2X + vline1X;
                 e.Graphics.DrawLine(pen, vline3X, 0, vline3X, panel1.Height);
             }
-            if (isEdit)
+            if (isEdit && !editHide)
             {
                 pen = new Pen(Color.FromArgb(0, 122, 204), 1.0f);
                 //获取最大外边框
@@ -716,6 +716,10 @@ namespace ImageTools_GDI
         private void btnCut_Click(object sender, EventArgs e)
         {
             Point r = new Point();
+            dashHide = true;
+            editHide = true;
+            a4Hide = true;
+            picImage.Refresh();
             if (cbA4.Checked)
             {
                 var a4 = GetA4Rectangle();
@@ -737,6 +741,10 @@ namespace ImageTools_GDI
                 imgGh.CopyFromScreen(r, new Point(0, 0), new Size(panel1.Width - 4, panel1.Height - 4));
                 picScrn.Image = image;
             }
+            a4Hide = false;
+            dashHide = false;
+            editHide = false;
+            picImage.Refresh();
             this.DialogResult = DialogResult.OK;
         }
 
