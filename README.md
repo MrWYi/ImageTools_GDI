@@ -6,6 +6,8 @@ ui库 modernui https://github.com/peters/winforms-modernui
 
 如果项目编译时出错需要先安装原作者的ui库,再删除报错的属性可编译成功.或者直接引用编译好的dll
 
+截图不显示右键菜单,编译release版运行就ok
+
 操作界面
 
 ![Image text](https://github.com/ca0t/ImageTools_GDI/blob/main/readme/%E6%93%8D%E4%BD%9C%E7%95%8C%E9%9D%A2.png)
