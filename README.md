@@ -8,6 +8,14 @@ ui库 modernui https://github.com/peters/winforms-modernui
 
 截图不显示右键菜单,编译release版运行就ok
 
+
+图片旋转精确到0.1°
+
+图片大小调整
+
+图片大小同比调整
+
+
 操作界面
 
 ![Image text](https://github.com/ca0t/ImageTools_GDI/blob/main/readme/%E6%93%8D%E4%BD%9C%E7%95%8C%E9%9D%A2.png)
