@@ -641,11 +641,13 @@ namespace ImageTools_GDI
                 int vline3X = vline2X + vline1X;
                 e.Graphics.DrawLine(pen, vline3X, 0, vline3X, panel1.Height);
             }
+
+            //获取最大外边框
+            rotateMaxRect = GetRotateRectangle(rect, rotate);
+
             if (isEdit && !editHide)
             {
                 pen = new Pen(Color.FromArgb(0, 122, 204), 1.0f);
-                //获取最大外边框
-                rotateMaxRect = GetRotateRectangle(rect, rotate);
                 e.Graphics.DrawRectangle(pen, rotateMaxRect);
 
                 rectArray[0] = new Rectangle(rotateMaxRect.X + rotateMaxRect.Width - 4, rotateMaxRect.Y + rotateMaxRect.Height - 4, 7, 7);
@@ -746,13 +748,20 @@ namespace ImageTools_GDI
             {
                 Size cutSize = rect.Size;
                 Point cutPoint = rect.Location;
+
+                if (tbRotate.Value != 0)
+                {
+                    cutSize = rotateMaxRect.Size;
+                    cutPoint = rotateMaxRect.Location;
+                }
+
                 if ((cutPoint.Y + cutSize.Height) > panel1.Height)
                 {
-                    cutSize.Height = panel1.Height - rect.Y - 2;
+                    cutSize.Height = panel1.Height - cutPoint.Y - 2;
                 }
                 if ((cutPoint.X + cutSize.Width) > panel1.Width)
                 {
-                    cutSize.Width = panel1.Width - rect.X - 2;
+                    cutSize.Width = panel1.Width - cutPoint.X - 2;
                 }
                 if (cutPoint.X < 0)
                 {
@@ -763,13 +772,6 @@ namespace ImageTools_GDI
                 {
                     cutSize.Height = cutSize.Height + cutPoint.Y;
                     cutPoint.Y = 0;
-                }
-                if (double.Parse(txtRotate.Text) != 0)
-                {
-                    var maxRect = GetRotateRectangle(rect, (float)double.Parse(txtRotate.Text));
-                    cutSize = maxRect.Size;
-                    r = maxRect.Location;
-                    cutPoint = maxRect.Location;
                 }
                 Bitmap image = new Bitmap(cutSize.Width, cutSize.Height);
                 Graphics imgGh = Graphics.FromImage(image);
