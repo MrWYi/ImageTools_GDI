@@ -6,7 +6,7 @@ ui库 modernui https://github.com/peters/winforms-modernui
 
 如果项目编译时出错需要先安装原作者的ui库,再删除报错的属性可编译成功.或者直接引用编译好的dll
 
-截图不显示右键菜单,编译release版运行就ok
+在vs中调试运行,截图不会显示右键菜单.非调试状态运行正常
 
 
 图片旋转精确到0.1°
