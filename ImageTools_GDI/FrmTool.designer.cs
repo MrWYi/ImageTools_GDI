@@ -68,7 +68,6 @@ namespace ImageTools_GDI
             this.DashColor = new System.Windows.Forms.Panel();
             this.btnImgSave = new MetroFramework.Controls.MetroButton();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
-            this.lblImageSizeInfo = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picScrn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
@@ -580,7 +579,6 @@ namespace ImageTools_GDI
             // metroTabPage2
             // 
             this.metroTabPage2.Controls.Add(this.label2);
-            this.metroTabPage2.Controls.Add(this.lblImageSizeInfo);
             this.metroTabPage2.Controls.Add(this.label4);
             this.metroTabPage2.Controls.Add(this.groupBox2);
             this.metroTabPage2.Controls.Add(this.btnImgSave);
@@ -687,16 +685,6 @@ namespace ImageTools_GDI
             this.btnImgSave.Theme = MetroFramework.MetroThemeStyle.Light;
             this.btnImgSave.Click += new System.EventHandler(this.btnImgSave_Click);
             // 
-            // lblImageSizeInfo
-            // 
-            this.lblImageSizeInfo.AutoSize = true;
-            this.lblImageSizeInfo.BackColor = System.Drawing.Color.White;
-            this.lblImageSizeInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(188)))), ((int)(((byte)(229)))));
-            this.lblImageSizeInfo.Location = new System.Drawing.Point(7, 40);
-            this.lblImageSizeInfo.Name = "lblImageSizeInfo";
-            this.lblImageSizeInfo.Size = new System.Drawing.Size(0, 12);
-            this.lblImageSizeInfo.TabIndex = 8;
-            // 
             // FrmTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -769,6 +757,5 @@ namespace ImageTools_GDI
         private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label lblImageSizeInfo;
     }
 }

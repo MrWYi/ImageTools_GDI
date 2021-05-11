@@ -103,6 +103,7 @@ namespace ImageTools_GDI
         bool isSizeMove = false;
         bool isEdit = false;
         Brush sizeRectColor = new SolidBrush(Color.FromArgb(0, 122, 204));
+        Rectangle rotateMaxRect;
         #endregion
 
         /// <summary>
@@ -136,7 +137,7 @@ namespace ImageTools_GDI
                 }
                 else
                 {
-                    if (tbRotate.Value >= 360) return true;
+                    if (tbRotate.Value >= 1800) return true;
                     tbRotate.Value++;
                 }
             }
@@ -149,7 +150,7 @@ namespace ImageTools_GDI
                 }
                 else
                 {
-                    if (tbRotate.Value <= 0) return true;
+                    if (tbRotate.Value <= -1800) return true;
                     tbRotate.Value--;
                 }
             }
@@ -644,16 +645,24 @@ namespace ImageTools_GDI
             {
                 pen = new Pen(Color.FromArgb(0, 122, 204), 1.0f);
                 //获取最大外边框
-                Rectangle maxRect = GetRotateRectangle(rect.Width, rect.Height, rotate);
-                int rectX = rect.X + (rect.Width / 2) - (maxRect.Width / 2);
-                int rectY = rect.Y + (rect.Height / 2) - (maxRect.Height / 2);
-                maxRect.Location = new Point(rectX, rectY);
-                e.Graphics.DrawRectangle(pen, maxRect);
+                rotateMaxRect = GetRotateRectangle(rect, rotate);
+                e.Graphics.DrawRectangle(pen, rotateMaxRect);
 
-                rectArray[0] = new Rectangle(maxRect.X + maxRect.Width - 4, maxRect.Y + maxRect.Height - 4, 7, 7);
+                rectArray[0] = new Rectangle(rotateMaxRect.X + rotateMaxRect.Width - 4, rotateMaxRect.Y + rotateMaxRect.Height - 4, 7, 7);
                 e.Graphics.FillRectangle(sizeRectColor, rectArray[0]);
+
+                if (double.Parse(txtRotate.Text) != 0)
+                {
+                    e.Graphics.DrawString(rect.Width.ToString(), new Font("Arial", 8), new SolidBrush(Color.FromArgb(0, 122, 204)), rotateMaxRect.X + (rotateMaxRect.Width / 2), rotateMaxRect.Y - 15);
+                    e.Graphics.DrawString(rect.Height.ToString(), new Font("Arial", 8), new SolidBrush(Color.FromArgb(0, 122, 204)), rotateMaxRect.X - 22, rotateMaxRect.Y + (rotateMaxRect.Height / 2));
+                }
+                else
+                {
+                    e.Graphics.DrawString(rect.Width.ToString(), new Font("Arial", 8), new SolidBrush(Color.FromArgb(0, 122, 204)), rect.X + (rect.Width / 2), rect.Y - 15);
+                    e.Graphics.DrawString(rect.Height.ToString(), new Font("Arial", 8), new SolidBrush(Color.FromArgb(0, 122, 204)), rect.X - 22, rect.Y + (rect.Height / 2));
+                }
             }
-            lblImageSizeInfo.Text = $"{rect}";
+            e.Graphics.DrawString($"{rect}",new Font("Arial",8),new SolidBrush(Color.Red),new Point(0,0));
         }
 
         /// <summary>
@@ -735,10 +744,37 @@ namespace ImageTools_GDI
             }
             else
             {
-                Bitmap image = new Bitmap(panel1.Width - 4, panel1.Height - 4);
+                Size cutSize = rect.Size;
+                Point cutPoint = rect.Location;
+                if ((cutPoint.Y + cutSize.Height) > panel1.Height)
+                {
+                    cutSize.Height = panel1.Height - rect.Y - 2;
+                }
+                if ((cutPoint.X + cutSize.Width) > panel1.Width)
+                {
+                    cutSize.Width = panel1.Width - rect.X - 2;
+                }
+                if (cutPoint.X < 0)
+                {
+                    cutSize.Width = cutSize.Width + cutPoint.X;
+                    cutPoint.X = 0;
+                }
+                if (cutPoint.Y < 0)
+                {
+                    cutSize.Height = cutSize.Height + cutPoint.Y;
+                    cutPoint.Y = 0;
+                }
+                if (double.Parse(txtRotate.Text) != 0)
+                {
+                    var maxRect = GetRotateRectangle(rect, (float)double.Parse(txtRotate.Text));
+                    cutSize = maxRect.Size;
+                    r = maxRect.Location;
+                    cutPoint = maxRect.Location;
+                }
+                Bitmap image = new Bitmap(cutSize.Width, cutSize.Height);
                 Graphics imgGh = Graphics.FromImage(image);
-                r = panel1.PointToScreen(r);
-                imgGh.CopyFromScreen(r, new Point(0, 0), new Size(panel1.Width - 4, panel1.Height - 4));
+                r = panel1.PointToScreen(cutPoint);
+                imgGh.CopyFromScreen(r, new Point(0, 0), cutSize);
                 picScrn.Image = image;
             }
             a4Hide = false;
@@ -953,15 +989,17 @@ namespace ImageTools_GDI
         }
 
 
-        public Rectangle GetRotateRectangle(int width, int height, float angle)
+        public Rectangle GetRotateRectangle(Rectangle rect, float angle)
         {
             double radian = angle * Math.PI / 180;
             double cos = Math.Cos(radian);
             double sin = Math.Sin(radian);
             //只需要考虑到第四象限和第三象限的情况取大值(中间用绝对值就可以包括第一和第二象限)
-            int newWidth = (int)(Math.Max(Math.Abs(width * cos - height * sin), Math.Abs(width * cos + height * sin)));
-            int newHeight = (int)(Math.Max(Math.Abs(width * sin - height * cos), Math.Abs(width * sin + height * cos)));
-            return new Rectangle(0, 0, newWidth, newHeight);
+            int newWidth = (int)(Math.Max(Math.Abs(rect.Width * cos - rect.Height * sin), Math.Abs(rect.Width * cos + rect.Height * sin)));
+            int newHeight = (int)(Math.Max(Math.Abs(rect.Width * sin - rect.Height * cos), Math.Abs(rect.Width * sin + rect.Height * cos)));
+            int rectX = rect.X + (rect.Width / 2) - (rotateMaxRect.Width / 2);
+            int rectY = rect.Y + (rect.Height / 2) - (rotateMaxRect.Height / 2);
+            return new Rectangle(rectX, rectY, newWidth, newHeight);
         }
 
         /// <summary>
@@ -990,6 +1028,7 @@ namespace ImageTools_GDI
 
         private void btnImgSave_Click(object sender, EventArgs e)
         {
+            if (picScrn.Image == null) return;
             SaveFileDialog fsd = new SaveFileDialog();
             fsd.FileName = "图片_" + DateTime.Now.ToString("yyyy-MM-HH hh-mm-ss");
             fsd.DefaultExt = ".jpg";
