@@ -16,7 +16,7 @@ ui库 modernui https://github.com/peters/winforms-modernui
 图片大小同比调整
 
 
-操作界面
+操作界面(调用微信PrScrn.dll截图)
 
 ![Image text](https://github.com/ca0t/ImageTools_GDI/blob/main/readme/%E6%93%8D%E4%BD%9C%E7%95%8C%E9%9D%A2.png)
 
